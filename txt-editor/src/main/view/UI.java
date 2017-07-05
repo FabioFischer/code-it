@@ -1,6 +1,5 @@
-package View;
+package main.view;
 
-import Controller.FileManager;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -224,12 +223,9 @@ public final class UI extends JFrame implements ActionListener {
 
         setContentPane(scroll);
         setJMenuBar(menuPrincipal);
-    }
 
-    public static void main(String[] args) {
-        UI ui = new UI();
-        ui.setVisible(true);
-        ui.textContent.requestFocus();
+        this.setVisible(true);
+        this.textContent.requestFocus();
     }
 
     @Override

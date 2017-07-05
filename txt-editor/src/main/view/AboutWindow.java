@@ -1,4 +1,4 @@
-package View;
+package main.view;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -18,11 +18,7 @@ public final class AboutWindow extends JFrame {
     private final SimpleAttributeSet aSet;
 
     public String aboutTextContent() {
-         return "Projeto desenvolvido por Matheus Felipe Klauberg e Fábio Luiz Fischer."
-                + "\n\nEstudantes do 3º Semestre do curso de Bacharelado de Ciêncas da Computação."
-                + "\n\nTrabalho com objetivo de criar um editor de texto baseado na aplicação 'Notepad'"
-                + "\nReferênte a disciplina de Programação II, orientada por Matheus Carvalho Viana."
-                + "\n\n\n2015/I";
+         return "";
     }
 
     public AboutWindow(String titulo) {
