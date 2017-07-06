@@ -4,7 +4,9 @@ import main.util.Validator
 import javax.swing.JTextArea
 
 class TextController : ITextController {
-    val NO_MATCH_FOUND: Int = -1
+    private val serialVersionUID = 1L
+
+    private val NO_MATCH_FOUND: Int = -1
 
     private fun selectText(textArea: JTextArea, index: Int, textSegment: String) {
         if (index != NO_MATCH_FOUND)

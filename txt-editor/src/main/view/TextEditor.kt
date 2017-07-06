@@ -1,12 +1,9 @@
 package main.view
 
-import main.view.screen.MainView
+import main.view.screen.MainScreen
 
-/**
- * Created by fabio.fischer on 04/07/2017.
- */
 object TextEditor {
     @JvmStatic fun main(args: Array<String>) {
-        MainView()
+        MainScreen()
     }
 }

@@ -6,6 +6,8 @@ import java.nio.file.Path
 import java.nio.file.Paths
 
 class FileController : IFileController {
+    private val serialVersionUID = 1L
+
     override fun new(path: String, fileContent: String, override: Boolean) {
         val filePath: Path = this.getPath(path)
 
