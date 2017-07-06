@@ -1,6 +1,11 @@
 package main.view.screen
 
-class AboutView : AbstractView(800, 900, "Text Editor"), java.awt.event.ActionListener {
+import main.controller.TextController
+
+class SearchScreen : AbstractScreen(800, 900, "Text Editor"), java.awt.event.ActionListener {
+
+    val textController: TextController = TextController()
+
     override fun actionPerformed(e: java.awt.event.ActionEvent?) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

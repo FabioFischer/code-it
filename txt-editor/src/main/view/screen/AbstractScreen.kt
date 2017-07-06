@@ -1,6 +1,6 @@
 package main.view.screen
 
-abstract class AbstractView(val screenWidth: Int, val screenHeight: Int, val screenName: String) : javax.swing.JFrame(), IViewBuilder {
+abstract class AbstractScreen(val screenWidth: Int, val screenHeight: Int, val screenName: String) : javax.swing.JFrame(), IScreenBuilder {
 
     init {
         setSize(screenWidth, screenHeight)

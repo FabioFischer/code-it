@@ -1,9 +1,6 @@
 package main.view.screen
 
-/**
- * Created by fabio.fischer on 05/07/2017.
- */
-interface IViewBuilder {
+interface IScreenBuilder {
     fun createComponents()
     fun createButtons()
     fun createKeyStrokes()

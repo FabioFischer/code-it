@@ -1,6 +1,6 @@
 package main.controller
 
-import main.util.ValidateUtils
+import main.util.Validator
 import javax.swing.JTextArea
 
 class TextController : ITextController {
@@ -12,11 +12,11 @@ class TextController : ITextController {
     }
 
     private fun replaceAll(text: String, textSegment: String, replaceWith: String): String?{
-        return text.replace(ValidateUtils.validateInput(textSegment, "Text input"), ValidateUtils.validateInput(replaceWith, "Replace text input"))
+        return text.replace(Validator.validateInput(textSegment, "Text input"), Validator.validateInput(replaceWith, "Replace text input"))
     }
 
     override fun find(text: String, textSegment: String, lastIndex: Int): Int {
-            val index = text.toLowerCase().indexOf(ValidateUtils.validateInput(textSegment, "Text input").toLowerCase(), lastIndex)
+            val index = text.toLowerCase().indexOf(Validator.validateInput(textSegment, "Text input").toLowerCase(), lastIndex)
 
             if (index == NO_MATCH_FOUND)
                 throw IllegalArgumentException("No match for $textSegment!")

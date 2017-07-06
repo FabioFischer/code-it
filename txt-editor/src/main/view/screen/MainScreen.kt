@@ -1,10 +1,10 @@
 package main.view.screen
 
-import main.controller.TextController
+import main.controller.FileController
 
-class FindOrReplaceView : AbstractView(800, 900, "Text Editor"), java.awt.event.ActionListener {
+class MainScreen : AbstractScreen(800, 900, "Text Editor"), java.awt.event.ActionListener {
 
-    val textController: TextController = TextController()
+    val fileController: FileController = FileController()
 
     override fun actionPerformed(e: java.awt.event.ActionEvent?) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
