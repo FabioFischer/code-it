@@ -1,3 +1,3 @@
 # txt-editor
 
-Text editor implementation in Kotlin
+Multi tabbed text editor implementation using Kotlin and JavaFX

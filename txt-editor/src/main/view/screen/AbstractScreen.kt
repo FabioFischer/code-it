@@ -1,31 +1,26 @@
 package main.view.screen
 
-abstract class AbstractScreen(val screenWidth: Int, val screenHeight: Int, val screenName: String) : javax.swing.JFrame(), IScreenBuilder {
+import javafx.application.Application
+import javafx.scene.control.Menu
+import javafx.scene.control.MenuItem
+import javafx.stage.Stage
+import javafx.event.ActionEvent
+import javafx.event.EventHandler
+import javafx.scene.control.MenuBar
+
+
+abstract class AbstractScreen(val screenWidth: Double, val screenHeight: Double, val screenName: String) : Application(), IScreenBuilder {
     private val serialVersionUID = 1L
+    private var primaryStage: Stage? = null
 
-    init {
-        setSize(screenWidth, screenHeight)
-        this.title = screenName
-        this.isVisible = true
+    fun initMenu(menu: Menu, menuBar: MenuBar, text: String) {
+        menu.text = text
+        menuBar.menus.add(menu)
     }
 
-    fun initToolbarButton(listener: java.awt.event.ActionListener, button: javax.swing.JButton, toolbar: javax.swing.JToolBar, name: String?, icon: javax.swing.ImageIcon) {
-        button.icon = icon
-        button.text = name
-        button.toolTipText = name
-        button.addActionListener(listener)
-
-        toolbar.add(button)
-        toolbar.addSeparator()
-    }
-
-    fun initMenuItem(listener: java.awt.event.ActionListener, menuItem: javax.swing.JMenuItem, menu: javax.swing.JMenu, name: String?, icon: javax.swing.ImageIcon, keyShortCut: javax.swing.KeyStroke) {
-        menuItem.icon = icon
-        menuItem.text = name
-        menuItem.toolTipText = name
-        menuItem.accelerator = keyShortCut
-        menuItem.addActionListener(listener)
-
-        menu.add(menuItem)
+    fun initMenuItem(menuItem: MenuItem, menu: Menu, text: String, handler: EventHandler<ActionEvent>) {
+        menuItem.text = text
+        menuItem.setOnAction{handler}
+        menu.items.add(menuItem)
     }
 }

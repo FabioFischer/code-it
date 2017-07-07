@@ -1,76 +1,72 @@
 package main.view.screen
 
-import main.controller.FileController
-import main.util.Resources
-import java.awt.BorderLayout
-import java.awt.Container
-import javax.swing.*
+import javafx.application.Application
+import javafx.event.EventHandler
+import javafx.stage.Stage
+import javafx.scene.Scene
+import javafx.scene.control.Menu
+import javafx.scene.control.MenuBar
+import javafx.scene.control.MenuItem
+import javafx.scene.input.KeyEvent
+import javafx.scene.layout.StackPane
+import javafx.scene.layout.GridPane.setFillWidth
+import javafx.scene.layout.VBoxBuilder
+import javafx.scene.layout.VBox
 
-class MainScreen : AbstractScreen(800, 600, "Text Editor"), java.awt.event.ActionListener {
-    private val serialVersionUID = 1L
-    private val fileController: FileController = FileController()
 
-    private val container: Container = this.contentPane
-    private val textArea: JTextArea = JTextArea()
-    private val menuBar: JMenuBar = JMenuBar()
 
-    private val menuFile: JMenu = JMenu()
-    private val menuEdit: JMenu = JMenu()
-    private val menuAbout: JMenu = JMenu()
+class MainScreen : AbstractScreen(800.0, 900.0, "Text Editor") {
+    var menuBar: MenuBar = MenuBar()
 
-    private val newFile: JMenuItem = JMenuItem()
-    private val openFile: JMenuItem = JMenuItem()
-    private val saveFile: JMenuItem = JMenuItem()
-    private val copy: JMenuItem = JMenuItem()
-    private val paste: JMenuItem = JMenuItem()
+    var fileMenu: Menu = Menu()
+    var editMenu: Menu = Menu()
+    var aboutMenu: Menu = Menu()
 
-    private val mainToolbar: JToolBar = JToolBar()
+    var fileMenuNew: MenuItem = MenuItem()
+    var fileMenuOpen: MenuItem = MenuItem()
+    var fileMenuSave: MenuItem = MenuItem()
+    var fileMenuExit: MenuItem = MenuItem()
 
-    private var newButton: JButton = JButton()
-    private var openButton: JButton = JButton()
-    private var saveButton: JButton = JButton()
-    private var aboutButton: JButton = JButton()
-
-    init {
-        defaultCloseOperation = JFrame.EXIT_ON_CLOSE
-
+    override fun start(primaryStage: Stage) {
         createComponents()
-    }
 
-    override fun actionPerformed(e: java.awt.event.ActionEvent?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val layout: VBox = VBoxBuilder.create().spacing(10.0).children(menuBar).build()
+        layout.setFillWidth(true)
+
+        val scene = Scene(layout,  this.screenHeight, this.screenWidth)
+
+        primaryStage.scene = scene
+        primaryStage.title = this.screenName
+        primaryStage.show()
     }
 
     override fun createComponents() {
-        textArea.lineWrap = true
-
-        contentPane.layout = BorderLayout() // the BorderLayout bit makes it fill it automatically
-        contentPane.add(textArea)
-
-        createButtons()
         createMenus()
     }
 
     override fun createButtons() {
-        initToolbarButton(this, newButton, mainToolbar, "New File", Resources.newFileIcon)
-        initToolbarButton(this, openButton, mainToolbar, "Open File", Resources.openFileIcon)
-        initToolbarButton(this, saveButton, mainToolbar, "Save File", Resources.saveFileIcon)
-        initToolbarButton(this, aboutButton, mainToolbar, "About", Resources.AboutInfoIcon)
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun createMenus() {
-        menuFile.name = "File"
-        menuEdit.name = "Edit"
-        menuAbout.name = "About"
+        this.initMenuItem(fileMenuNew, fileMenu, "New", EventHandler {  })
+        this.initMenuItem(fileMenuOpen, fileMenu, "Open", EventHandler {  })
+        this.initMenuItem(fileMenuSave, fileMenu, "Save", EventHandler {  })
+        this.initMenuItem(fileMenuExit, fileMenu, "Exit", EventHandler {  })
 
-        menuBar.add(menuFile)
-        menuBar.add(menuEdit)
-        menuBar.add(menuAbout)
-
-        this.jMenuBar = menuBar
+        this.initMenu(fileMenu, menuBar, "File")
+        this.initMenu(editMenu, menuBar, "Edit")
+        this.initMenu(aboutMenu, menuBar, "About")
     }
 
     override fun createKeyStrokes() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    companion object {
+        @JvmStatic
+        fun main(args: Array<String>) {
+            launch(MainScreen::class.java)
+        }
     }
 }
