@@ -3,22 +3,21 @@ package main.view.screen
 import javafx.event.EventHandler
 import javafx.stage.Stage
 import javafx.scene.Scene
-import javafx.scene.control.Menu
-import javafx.scene.control.MenuBar
-import javafx.scene.control.MenuItem
-import javafx.scene.layout.VBoxBuilder
-import javafx.scene.layout.VBox
+import javafx.scene.control.*
 import main.controller.FileController
-import java.util.Vector
-import javafx.scene.control.TabPane
+import javafx.scene.layout.BorderPane
+import javafx.geometry.Pos
+import com.sun.javafx.robot.impl.FXRobotHelper.getChildren
+import javafx.scene.layout.HBox
+import javafx.scene.control.Tab
 
 
 
-
-class MainScreen : AbstractScreen(800.0, 900.0, "Text Editor") {
+class MainScreen : AbstractScreen(600.0, 700.0, "Text Editor") {
     private val fileController: FileController = FileController()
 
-    private var menuBar: MenuBar = MenuBar()
+    private var upperMenuBar: MenuBar = MenuBar()
+    private var bottomMenuBar: MenuBar = MenuBar()
 
     private var fileMenu: Menu = Menu()
     private var editMenu: Menu = Menu()
@@ -29,22 +28,35 @@ class MainScreen : AbstractScreen(800.0, 900.0, "Text Editor") {
     private var fileMenuSave: MenuItem = MenuItem()
     private var fileMenuExit: MenuItem = MenuItem()
 
-    private val tabPane: TabPane = TabPane()
+    private var mainTab: TabPane = TabPane()
 
     override fun start(primaryStage: Stage) {
+        val root = BorderPane()
+
         createComponents()
 
-        val layout: VBox = VBoxBuilder.create().spacing(10.0).children(menuBar, tabPane).build()
-        layout.isFillWidth = true
+        val tab = Tab("new-file")
+        val textArea: TextArea = TextArea("")
+        textArea.setPrefSize( Double.MAX_VALUE, Double.MAX_VALUE );
 
-        val scene = Scene(layout,  this.screenHeight, this.screenWidth)
+        tab.content = textArea
+        mainTab.tabs.add(tab)
 
-        tabPane.prefWidthProperty().bind(scene.widthProperty())
-        tabPane.prefHeightProperty().bind(scene.heightProperty())
+        mainTab.tabs.add(Tab("+"))
+
+        root.top = upperMenuBar
+        root.bottom = bottomMenuBar
+        root.center = mainTab
+
+        val scene = Scene(root,  this.screenHeight, this.screenWidth)
+
+        root.prefHeightProperty().bind(scene.heightProperty())
+        root.prefWidthProperty().bind(scene.widthProperty())
 
         primaryStage.scene = scene
         primaryStage.title = this.screenName
         primaryStage.isMaximized = true
+
         primaryStage.show()
     }
 
@@ -58,13 +70,15 @@ class MainScreen : AbstractScreen(800.0, 900.0, "Text Editor") {
 
     override fun createMenus() {
         this.initMenuItem(fileMenuNew, fileMenu, "New", EventHandler { println("New") })
+        fileMenu.items.add(SeparatorMenuItem())
         this.initMenuItem(fileMenuOpen, fileMenu, "Open", EventHandler { println("Open") })
         this.initMenuItem(fileMenuSave, fileMenu, "Save", EventHandler {  })
+        fileMenu.items.add(SeparatorMenuItem())
         this.initMenuItem(fileMenuExit, fileMenu, "Exit", EventHandler {  })
 
-        this.initMenu(fileMenu, menuBar, "File")
-        this.initMenu(editMenu, menuBar, "Edit")
-        this.initMenu(aboutMenu, menuBar, "About")
+        this.initMenu(fileMenu, upperMenuBar, "File")
+        this.initMenu(editMenu, upperMenuBar, "Edit")
+        this.initMenu(aboutMenu, upperMenuBar, "About")
     }
 
     override fun createKeyStrokes() {
