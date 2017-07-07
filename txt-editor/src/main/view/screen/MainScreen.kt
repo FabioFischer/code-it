@@ -1,42 +1,50 @@
 package main.view.screen
 
-import javafx.application.Application
 import javafx.event.EventHandler
 import javafx.stage.Stage
 import javafx.scene.Scene
 import javafx.scene.control.Menu
 import javafx.scene.control.MenuBar
 import javafx.scene.control.MenuItem
-import javafx.scene.input.KeyEvent
-import javafx.scene.layout.StackPane
-import javafx.scene.layout.GridPane.setFillWidth
 import javafx.scene.layout.VBoxBuilder
 import javafx.scene.layout.VBox
+import main.controller.FileController
+import java.util.Vector
+import javafx.scene.control.TabPane
+
 
 
 
 class MainScreen : AbstractScreen(800.0, 900.0, "Text Editor") {
-    var menuBar: MenuBar = MenuBar()
+    private val fileController: FileController = FileController()
 
-    var fileMenu: Menu = Menu()
-    var editMenu: Menu = Menu()
-    var aboutMenu: Menu = Menu()
+    private var menuBar: MenuBar = MenuBar()
 
-    var fileMenuNew: MenuItem = MenuItem()
-    var fileMenuOpen: MenuItem = MenuItem()
-    var fileMenuSave: MenuItem = MenuItem()
-    var fileMenuExit: MenuItem = MenuItem()
+    private var fileMenu: Menu = Menu()
+    private var editMenu: Menu = Menu()
+    private var aboutMenu: Menu = Menu()
+
+    private var fileMenuNew: MenuItem = MenuItem()
+    private var fileMenuOpen: MenuItem = MenuItem()
+    private var fileMenuSave: MenuItem = MenuItem()
+    private var fileMenuExit: MenuItem = MenuItem()
+
+    private val tabPane: TabPane = TabPane()
 
     override fun start(primaryStage: Stage) {
         createComponents()
 
-        val layout: VBox = VBoxBuilder.create().spacing(10.0).children(menuBar).build()
-        layout.setFillWidth(true)
+        val layout: VBox = VBoxBuilder.create().spacing(10.0).children(menuBar, tabPane).build()
+        layout.isFillWidth = true
 
         val scene = Scene(layout,  this.screenHeight, this.screenWidth)
 
+        tabPane.prefWidthProperty().bind(scene.widthProperty())
+        tabPane.prefHeightProperty().bind(scene.heightProperty())
+
         primaryStage.scene = scene
         primaryStage.title = this.screenName
+        primaryStage.isMaximized = true
         primaryStage.show()
     }
 
@@ -49,8 +57,8 @@ class MainScreen : AbstractScreen(800.0, 900.0, "Text Editor") {
     }
 
     override fun createMenus() {
-        this.initMenuItem(fileMenuNew, fileMenu, "New", EventHandler {  })
-        this.initMenuItem(fileMenuOpen, fileMenu, "Open", EventHandler {  })
+        this.initMenuItem(fileMenuNew, fileMenu, "New", EventHandler { println("New") })
+        this.initMenuItem(fileMenuOpen, fileMenu, "Open", EventHandler { println("Open") })
         this.initMenuItem(fileMenuSave, fileMenu, "Save", EventHandler {  })
         this.initMenuItem(fileMenuExit, fileMenu, "Exit", EventHandler {  })
 
