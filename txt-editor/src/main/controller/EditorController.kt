@@ -2,7 +2,7 @@ package main.controller;
 
 import main.model.Editor
 
-class EditorController : IEditorController{
+class EditorController : IEditorController {
     private val serialVersionUID = 1L
 
     val editors: List<Editor>? = null

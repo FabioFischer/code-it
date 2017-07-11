@@ -10,14 +10,14 @@ import javafx.geometry.Pos
 import com.sun.javafx.robot.impl.FXRobotHelper.getChildren
 import javafx.scene.layout.HBox
 import javafx.scene.control.Tab
-
+import main.model.Editor
 
 
 class MainScreen : AbstractScreen(600.0, 700.0, "Text Editor") {
     private val fileController: FileController = FileController()
 
     private var upperMenuBar: MenuBar = MenuBar()
-    private var bottomMenuBar: MenuBar = MenuBar()
+    private var leftMenuBar: MenuBar = MenuBar()
 
     private var fileMenu: Menu = Menu()
     private var editMenu: Menu = Menu()
@@ -34,18 +34,19 @@ class MainScreen : AbstractScreen(600.0, 700.0, "Text Editor") {
         val root = BorderPane()
 
         createComponents()
+//
+//        val tab = Tab("new-file")
+//        val textArea: TextArea = TextArea("")
+//        textArea.setPrefSize( Double.MAX_VALUE, Double.MAX_VALUE )
+//
+//        tab.content = textArea
 
-        val tab = Tab("new-file")
-        val textArea: TextArea = TextArea("")
-        textArea.setPrefSize( Double.MAX_VALUE, Double.MAX_VALUE );
+        val editor: Editor = Editor()
 
-        tab.content = textArea
-        mainTab.tabs.add(tab)
-
-        mainTab.tabs.add(Tab("+"))
+        mainTab.tabs.add(editor.tab)
 
         root.top = upperMenuBar
-        root.bottom = bottomMenuBar
+        root.left = leftMenuBar
         root.center = mainTab
 
         val scene = Scene(root,  this.screenHeight, this.screenWidth)

@@ -1,3 +1,45 @@
 package main.model
 
-data class Editor(val fileName: String)
+import javafx.scene.control.Tab
+import javafx.scene.control.TextArea
+import javafx.scene.layout.Background
+import javafx.scene.layout.BorderPane
+import javafx.scene.paint.Color
+import main.util.Settings
+import main.view.listener.TextAreaListener
+
+class Editor(var isActive: Boolean = false) {
+    var fileName: String? = "+"
+
+    val tab: Tab = Tab()
+    val borderPane: BorderPane = BorderPane()
+    val textArea: TextArea = TextArea("")
+    val lineCounter: TextArea = TextArea("1")
+
+    val isContentChanged: Boolean = true
+
+    init {
+        changeName(fileName)
+        componentsPrefs()
+
+        textArea.textProperty().addListener(TextAreaListener.listen(lineCounter))
+
+        tab.content = borderPane
+    }
+
+    fun changeName(name: String?) {
+        this.fileName = name
+        this.tab.text = name
+    }
+
+    fun componentsPrefs() {
+        textArea.setPrefSize( Double.MAX_VALUE, Double.MAX_VALUE )
+        lineCounter.setPrefSize( Settings.LINE_COUNTER_WIDTH, Double.MAX_VALUE )
+
+        lineCounter.isEditable = false
+        lineCounter.isDisable = true
+
+        borderPane.center = textArea
+        borderPane.left = lineCounter
+    }
+}
