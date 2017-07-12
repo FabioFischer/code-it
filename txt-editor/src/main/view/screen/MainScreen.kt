@@ -6,15 +6,12 @@ import javafx.scene.Scene
 import javafx.scene.control.*
 import main.controller.FileController
 import javafx.scene.layout.BorderPane
-import javafx.geometry.Pos
-import com.sun.javafx.robot.impl.FXRobotHelper.getChildren
-import javafx.scene.layout.HBox
-import javafx.scene.control.Tab
+import main.controller.EditorController
 import main.model.Editor
-
 
 class MainScreen : AbstractScreen(600.0, 700.0, "Text Editor") {
     private val fileController: FileController = FileController()
+    private val editorController: EditorController = EditorController()
 
     private var upperMenuBar: MenuBar = MenuBar()
     private var leftMenuBar: MenuBar = MenuBar()
@@ -28,26 +25,18 @@ class MainScreen : AbstractScreen(600.0, 700.0, "Text Editor") {
     private var fileMenuSave: MenuItem = MenuItem()
     private var fileMenuExit: MenuItem = MenuItem()
 
-    private var mainTab: TabPane = TabPane()
+    private var tabPane: TabPane = TabPane()
 
     override fun start(primaryStage: Stage) {
         val root = BorderPane()
 
         createComponents()
-//
-//        val tab = Tab("new-file")
-//        val textArea: TextArea = TextArea("")
-//        textArea.setPrefSize( Double.MAX_VALUE, Double.MAX_VALUE )
-//
-//        tab.content = textArea
 
-        val editor: Editor = Editor()
-
-        mainTab.tabs.add(editor.tab)
+        tabPane.tabs.addAll(editorController.getAllTabs()!!)
 
         root.top = upperMenuBar
         root.left = leftMenuBar
-        root.center = mainTab
+        root.center = tabPane
 
         val scene = Scene(root,  this.screenHeight, this.screenWidth)
 
@@ -84,12 +73,5 @@ class MainScreen : AbstractScreen(600.0, 700.0, "Text Editor") {
 
     override fun createKeyStrokes() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    companion object {
-        @JvmStatic
-        fun main(args: Array<String>) {
-            launch(MainScreen::class.java)
-        }
     }
 }

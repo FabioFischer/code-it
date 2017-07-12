@@ -4,7 +4,7 @@ import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
 import javafx.scene.control.TextArea
 
-class TextAreaListener(var lineCounterTextArea : TextArea? = null) : ChangeListener<String>{
+class TextAreaListener(var lineCounterTextArea: TextArea? = null): ChangeListener<String>{
     override fun changed(observable: ObservableValue<out String>?, oldValue: String?, newValue: String?) {
 //        println("lines: ${newValue!!.lines()} ||| size: ${newValue!!.lines().size}")
         writeLineCounter(newValue!!.lines())
@@ -19,6 +19,6 @@ class TextAreaListener(var lineCounterTextArea : TextArea? = null) : ChangeListe
     }
 
     companion object  {
-        fun listen(lineCounterTextArea : TextArea? = null): TextAreaListener = TextAreaListener(lineCounterTextArea)
+        fun listen(lineCounterTextArea: TextArea? = null): TextAreaListener = TextAreaListener(lineCounterTextArea)
     }
 }
