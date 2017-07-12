@@ -1,5 +1,7 @@
 package main.model
 
+import javafx.event.Event
+import javafx.event.EventHandler
 import javafx.scene.control.Tab
 import javafx.scene.control.TextArea
 import javafx.scene.layout.BorderPane
@@ -12,13 +14,21 @@ class Editor(var isActive: Boolean = false, var fileName: String? = "+") {
     val textArea: TextArea = TextArea("")
     val lineCounter: TextArea = TextArea("1")
 
+    var onSelectRequest: EventHandler<Event>? = null
+        set(handler) {
+            tab.onSelectionChanged = handler
+        }
+
+    var onCloseRequest: EventHandler<Event>? = null
+        set(handler) {
+            tab.onCloseRequest = handler
+        }
+
     init {
         changeName(fileName)
         componentsPrefs()
 
         tab.content = borderPane
-        tab.setOnSelectionChanged { println("Selecionado $fileName") }
-        tab.setOnCloseRequest { println("Request de deleção") }
     }
 
     fun changeName(name: String?) {
