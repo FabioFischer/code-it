@@ -18,9 +18,7 @@ class EditorTabListener {
 
     class onCloseRequest(var editorController: EditorController, var editor: Editor): EventHandler<Event> {
         override fun handle(event: Event?) {
-            println("remaining ${editorController.editors!!.size}")
             editorController.delete(editor)
-
         }
     }
 }
