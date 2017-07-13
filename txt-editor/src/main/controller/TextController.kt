@@ -32,18 +32,18 @@ class TextController : ITextController {
     }
 
     override fun findNext(textArea: JTextArea, textSegment: String) {
-        var selectedTxt: String? = textArea.selectedText
+        val selectedTxt: String? = textArea.selectedText
 
         if (selectedTxt.equals("") || selectedTxt.equals(textSegment).not()) {
-            this.findFirst(textArea, textSegment)
+            findFirst(textArea, textSegment)
         } else {
             val index = this.find(textArea.text, textSegment, textArea.selectionStart)
-            this.selectText(textArea, index, textSegment)
+            selectText(textArea, index, textSegment)
         }
     }
 
     override fun replace(textArea: JTextArea, textSegment: String, replaceWith: String) {
-        this.findFirst(textArea, textSegment)
+        findFirst(textArea, textSegment)
         textArea.replaceSelection(replaceWith)
     }
 

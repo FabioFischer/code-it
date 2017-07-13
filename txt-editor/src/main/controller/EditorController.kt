@@ -1,8 +1,5 @@
 package main.controller;
 
-import javafx.beans.value.ChangeListener
-import javafx.event.Event
-import javafx.event.EventHandler
 import javafx.scene.control.Tab
 import main.model.Editor
 import main.util.Settings
@@ -47,13 +44,13 @@ class EditorController: IEditorController {
     }
 
     override fun delete(editor: Editor) {
-        if (editors!!.contains(editor)) {
+        if (editor in editors!!) {
             editors.remove(editor)
         }
     }
 
     override fun rename(editor: Editor, name: String) {
-        if (editors!!.contains(editor)) {
+        if (editor in editors!!) {
             editor.changeName(name)
         }
     }

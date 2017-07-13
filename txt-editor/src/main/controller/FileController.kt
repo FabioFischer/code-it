@@ -1,5 +1,6 @@
 package main.controller
 
+import main.util.Settings
 import java.io.*
 import java.nio.file.Files
 import java.nio.file.Path
@@ -13,7 +14,7 @@ class FileController : IFileController {
 
         if (override.not())
             if (Files.exists(filePath))
-                throw IllegalArgumentException("File ${filePath.getFileName()} already exists. Do you want to overwrite it?")
+                throw IllegalArgumentException("File ${filePath.fileName} already exists. Do you want to overwrite it?")
 
         BufferedWriter(FileWriter(filePath.toFile())).use {
             writer -> writer.write(fileContent)
@@ -25,7 +26,6 @@ class FileController : IFileController {
 
         if (Files.exists(filePath))
             Files.createFile(filePath)
-
 
         BufferedWriter(FileWriter(filePath.toFile())).use {
             writer -> writer.write(fileContent)
@@ -44,20 +44,16 @@ class FileController : IFileController {
         }
     }
 
-    override fun getPath(path: String): Path {
-        return Paths.get( if (path.endsWith(".txt")) path else "$path.txt" )
-    }
-
-    override fun getName(path: String): String {
-        return Paths.get(path).fileName.toString().replace(".txt", "")
-    }
-
     override fun getContent(path: String): String {
         val filePath = getPath(path)
 
         if (Files.exists(filePath).not())
-            throw FileNotFoundException("File ${filePath.getFileName()} not found!")
+            throw FileNotFoundException("File ${filePath.fileName} not found!")
 
-        return filePath.toFile().readText(charset = Charsets.UTF_8)
+        return filePath.toFile().readText(charset = Settings.APP_CHARSET)
     }
+
+    override fun getPath(path: String): Path = Paths.get( if (path.endsWith(".txt")) path else "$path.txt" )
+
+    override fun getName(path: String): String = Paths.get(path).fileName.toString().replace(".txt", "")
 }
