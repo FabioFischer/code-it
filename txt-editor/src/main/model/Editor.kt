@@ -1,18 +1,23 @@
 package main.model
 
+import javafx.beans.value.ChangeListener
 import javafx.event.Event
 import javafx.event.EventHandler
 import javafx.scene.control.Tab
 import javafx.scene.control.TextArea
 import javafx.scene.layout.BorderPane
 import main.util.Settings
-import main.view.listener.TextAreaListener
 
 class Editor(var isActive: Boolean = false, var fileName: String? = "+") {
     val tab: Tab = Tab()
     val borderPane: BorderPane = BorderPane()
     val textArea: TextArea = TextArea("")
     val lineCounter: TextArea = TextArea("1")
+
+    var textAreaListener: ChangeListener<String>? = null
+        set(listener) {
+            textArea.textProperty().addListener(listener)
+        }
 
     var onSelectRequest: EventHandler<Event>? = null
         set(handler) {
@@ -38,7 +43,6 @@ class Editor(var isActive: Boolean = false, var fileName: String? = "+") {
 
     fun componentsPrefs() {
         textArea.setPrefSize( Double.MAX_VALUE, Double.MAX_VALUE )
-        textArea.textProperty().addListener(TextAreaListener.listen(lineCounter))
         lineCounter.setPrefSize( Settings.LINE_COUNTER_WIDTH, Double.MAX_VALUE )
 
         lineCounter.isEditable = false

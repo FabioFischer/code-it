@@ -1,34 +1,26 @@
 package main.controller;
 
+import javafx.beans.value.ChangeListener
+import javafx.event.Event
+import javafx.event.EventHandler
 import javafx.scene.control.Tab
 import main.model.Editor
 import main.util.Settings
 import main.util.Validator
-import main.view.listener.EditorListener
 
 class EditorController: IEditorController {
     private val serialVersionUID = 1L
-    private val newEditor: Editor? = Editor()
 
     val editors: ArrayList<Editor>? = ArrayList()
 
     init {
         // TODO Recover working files on previously session
         editors!!.add(Editor(true, getUntitledFileName()))
-        editors.add(newEditor!!)
-
-        linkListeners()
-    }
-
-    fun linkListeners() {
-        for (editor in editors!!) {
-            editor.onSelectRequest = EditorListener.onSelectionRequest(this, editor)
-            editor.onCloseRequest = EditorListener.onCloseRequest(this, editor)
-        }
+        editors.add(Editor())
     }
 
     fun getUntitledFileName(): String {
-        return Settings.NEW_FILE_NAME.replace("#", if (editors!!.size.toString().isNullOrEmpty()) "0" else (editors.size).toString())
+        return Settings.NEW_FILE_NAME.replace("#", if (editors!!.size.toString().isNullOrEmpty() || editors.size == 0) "1" else editors.size.toString())
     }
 
     fun enableEditor(editor: Editor) {

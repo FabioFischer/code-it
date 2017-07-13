@@ -1,10 +1,11 @@
 package main.view.screen
 
+import javafx.scene.Scene
+import javafx.scene.layout.BorderPane
 import javafx.stage.Stage
 import main.controller.TextController
 
 class SearchScreen : AbstractScreen(800.0, 900.0, "Text Editor"), java.awt.event.ActionListener {
-    private val serialVersionUID = 1L
     private val textController: TextController = TextController()
 
     override fun start(primaryStage: Stage?) {
@@ -15,19 +16,19 @@ class SearchScreen : AbstractScreen(800.0, 900.0, "Text Editor"), java.awt.event
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun createComponents() {
+    override fun initScene(pane: BorderPane): Scene {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun createButtons() {
+    override fun initComponents() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun createMenus() {
+    override fun initButtons() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun createKeyStrokes() {
+    override fun initMenus() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
