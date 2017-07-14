@@ -9,5 +9,5 @@ interface IEditorController {
     fun getAllTabs() : List<Tab>?
     fun add(editor: Editor)
     fun delete(editor: Editor)
-    fun rename(editor: Editor, name: String)
+    fun rename(editor: Editor?, name: String)
 }

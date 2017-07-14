@@ -49,9 +49,9 @@ class EditorController: IEditorController {
         }
     }
 
-    override fun rename(editor: Editor, name: String) {
+    override fun rename(editor: Editor?, name: String) {
         if (editor in editors!!) {
-            editor.changeName(name)
+            editor!!.changeName(name)
         }
     }
 }
