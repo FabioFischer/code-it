@@ -1,7 +1,7 @@
 package main.controller
 
-import main.util.Settings
 import java.io.*
+import java.nio.charset.Charset
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -44,13 +44,13 @@ class FileController : IFileController {
         }
     }
 
-    override fun getContent(path: String): String {
+    override fun getContent(path: String, charset: Charset): String {
         val filePath = getPath(path)
 
         if (Files.exists(filePath).not())
             throw FileNotFoundException("File ${filePath.fileName} not found!")
 
-        return filePath.toFile().readText(charset = Settings.APP_CHARSET)
+        return filePath.toFile().readText(charset = charset)
     }
 
     override fun getPath(path: String): Path = Paths.get( if (path.endsWith(".txt")) path else "$path.txt" )

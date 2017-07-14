@@ -7,5 +7,6 @@ object Settings {
     var NEW_FILE_NAME: String = "untitled-#"
     var APP_CHARSET: Charset = Charsets.UTF_8
     var LINE_COUNTER_WIDTH: Double = 20.0
+    var DEFAULT_PROJECTS_DIRECTORY: String = "C:/Users/fabio.fischer/Desktop"
     var VALID_EXTENSIONS: FileChooser.ExtensionFilter = FileChooser.ExtensionFilter("Text files (*.txt)", "*.txt")
 }

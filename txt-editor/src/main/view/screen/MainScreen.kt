@@ -11,6 +11,7 @@ import main.model.Editor
 import main.util.Settings
 import main.view.handler.EditorTabHandler
 import main.view.listener.EditorTextListener
+import java.io.File
 
 
 class MainScreen : AbstractScreen(600.0, 700.0, "Text Editor") {
@@ -33,10 +34,6 @@ class MainScreen : AbstractScreen(600.0, 700.0, "Text Editor") {
 
     var primaryStage: Stage? = null
     val tabPane: TabPane = TabPane()
-
-    fun getCurrentEditor(): Editor? {
-        return currentEditor
-    }
 
     fun setCurrentEditor(editor: Editor) {
         currentEditor = editor
@@ -126,11 +123,12 @@ class MainScreen : AbstractScreen(600.0, 700.0, "Text Editor") {
 
         chooser.title = "Open File"
         chooser.extensionFilters.add(Settings.VALID_EXTENSIONS)
+//        chooser.initialDirectory = File() Settings.DEFAULT_PROJECTS_DIRECTORY
 
         val file = chooser.showOpenDialog(primaryStage)
         if (file != null) {
             editorController.rename(editor, file.name)
-            editor!!.textArea.text = fileController.getContent(file.path.toString())
+            editor!!.textArea.text = fileController.getContent(file.path.toString(), Settings.APP_CHARSET)
         }
     }
 }

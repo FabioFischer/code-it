@@ -1,5 +1,6 @@
 package main.controller
 
+import java.nio.charset.Charset
 import java.nio.file.Path
 
 interface IFileController {
@@ -8,5 +9,5 @@ interface IFileController {
     fun saveAs (path: String, fileContent: String, override: Boolean)
     fun getPath (path: String): Path
     fun getName (path: String): String
-    fun getContent (path: String): String
+    fun getContent (path: String, charset: Charset): String
 }
