@@ -20,6 +20,11 @@ class EditorController: IEditorController {
         return Settings.NEW_FILE_NAME.replace("#", if (editors!!.size.toString().isNullOrEmpty() || editors.size == 0) "1" else editors.size.toString())
     }
 
+    fun enableEditor(editor: Editor, fileName: String) {
+        editor.isActive = true
+        rename(editor, fileName)
+    }
+
     fun enableEditor(editor: Editor) {
         editor.isActive = true
         rename(editor, getUntitledFileName())

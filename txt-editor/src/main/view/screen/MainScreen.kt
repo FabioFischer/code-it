@@ -25,34 +25,18 @@ class MainScreen : AbstractScreen(600.0, 700.0, "Text Editor") {
     private val fileMenuNew: MenuItem = MenuItem()
     private val fileMenuOpen: MenuItem = MenuItem()
     private val fileMenuSave: MenuItem = MenuItem()
+    private val fileMenuSaveAs: MenuItem = MenuItem()
     private val fileMenuExit: MenuItem = MenuItem()
-
-    private var currentEditor: Editor? = Editor()
 
     val fileController: FileController = FileController()
     val editorController: EditorController = EditorController()
 
-    var primaryStage: Stage? = null
     val tabPane: TabPane = TabPane()
-
-    fun setCurrentEditor(editor: Editor) {
-        currentEditor = editor
-
-        linkEditorHandlers()
-        fileMenuOpen.setOnAction {
-            openFileRequest(primaryStage!!, currentEditor)
-        }
-    }
 
     override fun start(primaryStage: Stage) {
         val root = BorderPane()
-        this.primaryStage = primaryStage
 
-        initComponents()
-
-        fileMenuOpen.setOnAction {
-            openFileRequest(primaryStage, currentEditor)
-        }
+        initComponents(primaryStage)
 
         primaryStage.scene = initScene(root)
         primaryStage.title = this.screenName
@@ -74,10 +58,11 @@ class MainScreen : AbstractScreen(600.0, 700.0, "Text Editor") {
         return scene
     }
 
-    override fun initComponents() {
+    override fun initComponents(primaryStage: Stage) {
         initMenus()
         initButtons()
         linkEditorHandlers()
+        linkMenuItemHandlers(primaryStage)
 
         tabPane.tabs.addAll(editorController.getAllTabs()!!)
     }
@@ -90,6 +75,7 @@ class MainScreen : AbstractScreen(600.0, 700.0, "Text Editor") {
         addSeparator(fileMenu)
         initMenuItem(fileMenuOpen, fileMenu, "Open")
         initMenuItem(fileMenuSave, fileMenu, "Save")
+        initMenuItem(fileMenuSaveAs, fileMenu, "Save As...")
         addSeparator(fileMenu)
         initMenuItem(fileMenuExit, fileMenu, "Exit")
 
@@ -104,6 +90,24 @@ class MainScreen : AbstractScreen(600.0, 700.0, "Text Editor") {
         linkEditorHandlers(editor)
     }
 
+    fun linkMenuItemHandlers(primaryStage: Stage) {
+        fileMenuNew.setOnAction {
+            newFileRequest()
+        }
+        fileMenuOpen.setOnAction {
+            openFileRequest(primaryStage)
+        }
+        fileMenuSave.setOnAction {
+            saveFileRequest(primaryStage)
+        }
+        fileMenuSaveAs.setOnAction {
+            saveAsFileRequest(primaryStage)
+        }
+        fileMenuExit.setOnAction {
+            saveAsFileRequest(primaryStage)
+        }
+    }
+
     fun linkEditorHandlers() {
         for (editor in editorController.editors!!) linkEditorHandlers(editor)
     }
@@ -115,20 +119,38 @@ class MainScreen : AbstractScreen(600.0, 700.0, "Text Editor") {
     }
 
     fun newFileRequest() {
+        val editor: Editor = editorController.editors?.firstOrNull { it.isActive.not() }!!
 
+        editorController.enableEditor(editor)
+        addTab(tabPane, Editor())
+        tabPane.selectionModel.select(editor.tab)
     }
 
-    fun openFileRequest(primaryStage: Stage, editor: Editor?) {
+    fun openFileRequest(primaryStage: Stage) {
         val chooser = FileChooser()
 
         chooser.title = "Open File"
         chooser.extensionFilters.add(Settings.VALID_EXTENSIONS)
-//        chooser.initialDirectory = File() Settings.DEFAULT_PROJECTS_DIRECTORY
+        chooser.initialDirectory = File(Settings.DEFAULT_PROJECTS_DIRECTORY)
 
+        val editor: Editor = editorController.editors?.firstOrNull { it.isActive.not() }!!
         val file = chooser.showOpenDialog(primaryStage)
+
         if (file != null) {
-            editorController.rename(editor, file.name)
-            editor!!.textArea.text = fileController.getContent(file.path.toString(), Settings.APP_CHARSET)
+            editorController.enableEditor(editor, file.name)
+            editor.textArea.text = fileController.getContent(file.path.toString(), Settings.APP_CHARSET)
+            tabPane.selectionModel.select(editor.tab)
+
+            addTab(tabPane, Editor())
         }
+    }
+
+    fun saveFileRequest(primaryStage: Stage) {
+    }
+
+    fun saveAsFileRequest(primaryStage: Stage) {
+    }
+
+    fun exitAppRequest(primaryStage: Stage) {
     }
 }

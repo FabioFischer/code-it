@@ -8,6 +8,7 @@ Multi tabbed text editor implementation using Kotlin and JavaFX
  - [X] Implement tab listener - Click on the tab with "+" on title to add more tabs; delete tabs clicking on "x" or using middle mouse button
  - [X] Create a upper menu containing the main segments (file, editor, view, about). Create the items
  - [ ] Use JavaFX FileChooser on file actions
+ - [ ] Link shortcuts to file actions
  - [ ] Create a "About" frame
  - [ ] Create a "Find and Replace" frame
  - [ ] Create a left menu containing basic file actions (new, open, save) with icons

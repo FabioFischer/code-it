@@ -18,7 +18,6 @@ class EditorTabHandler {
                         editorController.enableEditor(editor)
                         root.addTab(root.tabPane, Editor())
                     }
-                    root.setCurrentEditor(editor)
                 }
             }
         }

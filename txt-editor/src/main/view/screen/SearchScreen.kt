@@ -20,7 +20,7 @@ class SearchScreen : AbstractScreen(800.0, 900.0, "Text Editor"), java.awt.event
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun initComponents() {
+    override fun initComponents(primaryStage: Stage) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
