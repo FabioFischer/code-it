@@ -3,10 +3,12 @@ package main.view.screen
 import javafx.stage.Stage
 import javafx.scene.Scene
 import javafx.scene.control.*
+import javafx.scene.input.KeyCode
+import javafx.scene.input.KeyCodeCombination
+import javafx.scene.input.KeyCombination
 import javafx.scene.layout.BorderPane
-import main.controller.EditorController
-import main.controller.FileController
 import main.model.Editor
+import main.util.Resources
 import main.view.handler.EditorFileHandler
 import main.view.handler.EditorTabHandler
 import main.view.listener.EditorTextListener
@@ -24,12 +26,9 @@ class MainScreen : AbstractScreen(600.0, 700.0, "Text Editor") {
     private val fileMenuOpen = MenuItem()
     private val fileMenuSave = MenuItem()
     private val fileMenuSaveAs = MenuItem()
-    private val fileMenuExit = MenuItem()
+    private val fileMenuCloseFile = MenuItem()
 
-    val fileController = FileController()
-    val editorController = EditorController()
     val editorFileHandler = EditorFileHandler(editorController, fileController)
-
     val tabPane: TabPane = TabPane()
 
     override fun start(primaryStage: Stage) {
@@ -38,7 +37,8 @@ class MainScreen : AbstractScreen(600.0, 700.0, "Text Editor") {
         initComponents(primaryStage)
 
         primaryStage.scene = initScene(root)
-        primaryStage.title = this.screenName
+        primaryStage.title = screenName
+        primaryStage.icons.add(Resources.appIcon)
         primaryStage.isMaximized = true
 
         editorFileHandler.primaryStage = primaryStage
@@ -62,24 +62,20 @@ class MainScreen : AbstractScreen(600.0, 700.0, "Text Editor") {
 
     override fun initComponents(primaryStage: Stage) {
         initMenus()
-        initButtons()
         linkEditorHandlers()
-        linkMenuItemHandlers(primaryStage)
+        linkMenuItemHandlers()
 
         tabPane.tabs.addAll(editorController.getAllTabs()!!)
     }
 
-    override fun initButtons() {
-    }
-
     override fun initMenus() {
-        initMenuItem(fileMenuNew, fileMenu, "New")
+        initMenuItem(fileMenuNew, fileMenu, "New", KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN))
         addSeparator(fileMenu)
-        initMenuItem(fileMenuOpen, fileMenu, "Open")
-        initMenuItem(fileMenuSave, fileMenu, "Save")
-        initMenuItem(fileMenuSaveAs, fileMenu, "Save As...")
+        initMenuItem(fileMenuOpen, fileMenu, "Open", KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN))
+        initMenuItem(fileMenuSave, fileMenu, "Save", KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN))
+        initMenuItem(fileMenuSaveAs, fileMenu, "Save As...", KeyCodeCombination(KeyCode.S, KeyCombination.SHIFT_DOWN, KeyCombination.CONTROL_DOWN))
         addSeparator(fileMenu)
-        initMenuItem(fileMenuExit, fileMenu, "Exit")
+        initMenuItem(fileMenuCloseFile, fileMenu, "Close Tab", KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN))
 
         initMenu(fileMenu, upperMenuBar, "File")
         initMenu(editMenu, upperMenuBar, "Edit")
@@ -92,7 +88,7 @@ class MainScreen : AbstractScreen(600.0, 700.0, "Text Editor") {
         linkEditorHandlers(editor)
     }
 
-    private fun linkMenuItemHandlers(primaryStage: Stage) {
+    private fun linkMenuItemHandlers() {
         fileMenuNew.setOnAction {
             editorFileHandler.newFileRequest()
         }
@@ -105,8 +101,8 @@ class MainScreen : AbstractScreen(600.0, 700.0, "Text Editor") {
         fileMenuSaveAs.setOnAction {
             editorFileHandler.saveAsFileRequest()
         }
-        fileMenuExit.setOnAction {
-            editorFileHandler.saveAsFileRequest()
+        fileMenuCloseFile.setOnAction {
+            editorFileHandler.closeFileRequest()
         }
     }
 
@@ -116,7 +112,7 @@ class MainScreen : AbstractScreen(600.0, 700.0, "Text Editor") {
 
     private fun linkEditorHandlers(editor: Editor) {
         editor.textAreaListener = EditorTextListener.listen(editor)
-        editor.onSelectRequest = EditorTabHandler.onSelectionRequest(this, editorController)
-        editor.onCloseRequest = EditorTabHandler.onCloseRequest(editorController)
+        editor.onSelectRequest = EditorTabHandler.onSelectionRequest(this)
+        editor.onCloseRequest = EditorTabHandler.onCloseRequest(this)
     }
 }

@@ -16,7 +16,10 @@ class Editor(var isActive: Boolean = false, var fileName: String? = "+") {
     val lineCounter: TextArea = TextArea("1")
 
     var path: String? = null
-    var isChanged: Boolean = true
+    var isChanged: Boolean = false
+        set (isit){
+            println("$fileName changed")
+        }
 
     var textAreaListener: ChangeListener<String>? = null
         set(listener) {

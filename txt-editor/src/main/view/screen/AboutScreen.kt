@@ -21,10 +21,6 @@ class AboutScreen : AbstractScreen(800.0, 900.0, "Text Editor"), java.awt.event.
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun initButtons() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     override fun initMenus() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
