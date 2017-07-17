@@ -4,32 +4,31 @@ import javafx.stage.Stage
 import javafx.scene.Scene
 import javafx.scene.control.*
 import javafx.scene.layout.BorderPane
-import javafx.stage.FileChooser
 import main.controller.EditorController
 import main.controller.FileController
 import main.model.Editor
-import main.util.Settings
+import main.view.handler.EditorFileHandler
 import main.view.handler.EditorTabHandler
 import main.view.listener.EditorTextListener
-import java.io.File
 
 
 class MainScreen : AbstractScreen(600.0, 700.0, "Text Editor") {
-    private val upperMenuBar: MenuBar = MenuBar()
-    private val leftMenuBar: MenuBar = MenuBar()
+    private val upperMenuBar = MenuBar()
+    private val leftMenuBar = MenuBar()
 
-    private val fileMenu: Menu = Menu()
-    private val editMenu: Menu = Menu()
-    private val aboutMenu: Menu = Menu()
+    private val fileMenu = Menu()
+    private val editMenu = Menu()
+    private val aboutMenu = Menu()
 
-    private val fileMenuNew: MenuItem = MenuItem()
-    private val fileMenuOpen: MenuItem = MenuItem()
-    private val fileMenuSave: MenuItem = MenuItem()
-    private val fileMenuSaveAs: MenuItem = MenuItem()
-    private val fileMenuExit: MenuItem = MenuItem()
+    private val fileMenuNew = MenuItem()
+    private val fileMenuOpen = MenuItem()
+    private val fileMenuSave = MenuItem()
+    private val fileMenuSaveAs = MenuItem()
+    private val fileMenuExit = MenuItem()
 
-    val fileController: FileController = FileController()
-    val editorController: EditorController = EditorController()
+    val fileController = FileController()
+    val editorController = EditorController()
+    val editorFileHandler = EditorFileHandler(editorController, fileController)
 
     val tabPane: TabPane = TabPane()
 
@@ -41,6 +40,9 @@ class MainScreen : AbstractScreen(600.0, 700.0, "Text Editor") {
         primaryStage.scene = initScene(root)
         primaryStage.title = this.screenName
         primaryStage.isMaximized = true
+
+        editorFileHandler.primaryStage = primaryStage
+        editorFileHandler.root = this
 
         primaryStage.show()
     }
@@ -90,25 +92,25 @@ class MainScreen : AbstractScreen(600.0, 700.0, "Text Editor") {
         linkEditorHandlers(editor)
     }
 
-    fun linkMenuItemHandlers(primaryStage: Stage) {
+    private fun linkMenuItemHandlers(primaryStage: Stage) {
         fileMenuNew.setOnAction {
-            newFileRequest()
+            editorFileHandler.newFileRequest()
         }
         fileMenuOpen.setOnAction {
-            openFileRequest(primaryStage)
+            editorFileHandler.openFileRequest()
         }
         fileMenuSave.setOnAction {
-            saveFileRequest(primaryStage)
+            editorFileHandler.saveFileRequest()
         }
         fileMenuSaveAs.setOnAction {
-            saveAsFileRequest(primaryStage)
+            editorFileHandler.saveAsFileRequest()
         }
         fileMenuExit.setOnAction {
-            saveAsFileRequest(primaryStage)
+            editorFileHandler.saveAsFileRequest()
         }
     }
 
-    fun linkEditorHandlers() {
+    private fun linkEditorHandlers() {
         for (editor in editorController.editors!!) linkEditorHandlers(editor)
     }
 
@@ -116,41 +118,5 @@ class MainScreen : AbstractScreen(600.0, 700.0, "Text Editor") {
         editor.textAreaListener = EditorTextListener.listen(editor)
         editor.onSelectRequest = EditorTabHandler.onSelectionRequest(this, editorController)
         editor.onCloseRequest = EditorTabHandler.onCloseRequest(editorController)
-    }
-
-    fun newFileRequest() {
-        val editor: Editor = editorController.editors?.firstOrNull { it.isActive.not() }!!
-
-        editorController.enableEditor(editor)
-        addTab(tabPane, Editor())
-        tabPane.selectionModel.select(editor.tab)
-    }
-
-    fun openFileRequest(primaryStage: Stage) {
-        val chooser = FileChooser()
-
-        chooser.title = "Open File"
-        chooser.extensionFilters.add(Settings.VALID_EXTENSIONS)
-        chooser.initialDirectory = File(Settings.DEFAULT_PROJECTS_DIRECTORY)
-
-        val editor: Editor = editorController.editors?.firstOrNull { it.isActive.not() }!!
-        val file = chooser.showOpenDialog(primaryStage)
-
-        if (file != null) {
-            editorController.enableEditor(editor, file.name)
-            editor.textArea.text = fileController.getContent(file.path.toString(), Settings.APP_CHARSET)
-            tabPane.selectionModel.select(editor.tab)
-
-            addTab(tabPane, Editor())
-        }
-    }
-
-    fun saveFileRequest(primaryStage: Stage) {
-    }
-
-    fun saveAsFileRequest(primaryStage: Stage) {
-    }
-
-    fun exitAppRequest(primaryStage: Stage) {
     }
 }

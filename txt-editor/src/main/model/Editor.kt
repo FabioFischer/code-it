@@ -15,6 +15,9 @@ class Editor(var isActive: Boolean = false, var fileName: String? = "+") {
     val textArea: TextArea = TextArea("")
     val lineCounter: TextArea = TextArea("1")
 
+    var path: String? = null
+    var isChanged: Boolean = true
+
     var textAreaListener: ChangeListener<String>? = null
         set(listener) {
             textArea.textProperty().addListener(listener)
@@ -40,6 +43,7 @@ class Editor(var isActive: Boolean = false, var fileName: String? = "+") {
     fun changeName(name: String?) {
         this.fileName = name
         this.tab.text = name
+        this.isChanged = true
     }
 
     fun componentsPrefs() {
