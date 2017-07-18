@@ -7,6 +7,8 @@ import main.model.Editor
 class EditorTextListener(var editor: Editor): ChangeListener<String>{
     override fun changed(observable: ObservableValue<out String>?, oldValue: String?, newValue: String?) {
         writeLineCounter(newValue!!.lines())
+
+        if (oldValue.isNullOrEmpty().not() && oldValue != newValue) editor.isChanged = true
     }
 
     fun writeLineCounter(textLines: List<String>) {

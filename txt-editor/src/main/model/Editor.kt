@@ -7,7 +7,6 @@ import javafx.scene.control.Tab
 import javafx.scene.control.TextArea
 import javafx.scene.layout.BorderPane
 import main.util.Settings
-import java.nio.charset.Charset
 
 class Editor(var isActive: Boolean = false, var fileName: String? = "+") {
     val tab: Tab = Tab()
@@ -17,9 +16,6 @@ class Editor(var isActive: Boolean = false, var fileName: String? = "+") {
 
     var path: String? = null
     var isChanged: Boolean = false
-        set (isit){
-            println("$fileName changed")
-        }
 
     var textAreaListener: ChangeListener<String>? = null
         set(listener) {

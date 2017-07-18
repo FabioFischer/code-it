@@ -1,5 +1,6 @@
 package main.view.screen
 
+import javafx.application.Application
 import javafx.stage.Stage
 import javafx.scene.Scene
 import javafx.scene.control.*
@@ -9,24 +10,34 @@ import javafx.scene.input.KeyCombination
 import javafx.scene.layout.BorderPane
 import main.model.Editor
 import main.util.Resources
+import main.util.Settings
 import main.view.handler.EditorFileHandler
 import main.view.handler.EditorTabHandler
 import main.view.listener.EditorTextListener
 
-
-class MainScreen : AbstractScreen(600.0, 700.0, "Text Editor") {
+class MainScreen : AbstractScreen(600.0, 700.0, Settings.APP_NAME) {
     private val upperMenuBar = MenuBar()
     private val leftMenuBar = MenuBar()
 
     private val fileMenu = Menu()
     private val editMenu = Menu()
-    private val aboutMenu = Menu()
+    private val helpMenu = Menu()
 
     private val fileMenuNew = MenuItem()
     private val fileMenuOpen = MenuItem()
     private val fileMenuSave = MenuItem()
     private val fileMenuSaveAs = MenuItem()
+    private val fileMenuSaveAll = MenuItem()
     private val fileMenuCloseFile = MenuItem()
+
+    private val editMenuUndo = MenuItem()
+    private val editMenuRedo = MenuItem()
+    private val editMenuCut = MenuItem()
+    private val editMenuCopy = MenuItem()
+    private val editMenuPaste = MenuItem()
+    private val editMenuFindReplace = MenuItem()
+
+    private val helpMenuAbout = MenuItem()
 
     val editorFileHandler = EditorFileHandler(editorController, fileController)
     val tabPane: TabPane = TabPane()
@@ -69,6 +80,7 @@ class MainScreen : AbstractScreen(600.0, 700.0, "Text Editor") {
     }
 
     override fun initMenus() {
+        // File menu
         initMenuItem(fileMenuNew, fileMenu, "New", KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN))
         addSeparator(fileMenu)
         initMenuItem(fileMenuOpen, fileMenu, "Open", KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN))
@@ -76,10 +88,24 @@ class MainScreen : AbstractScreen(600.0, 700.0, "Text Editor") {
         initMenuItem(fileMenuSaveAs, fileMenu, "Save As...", KeyCodeCombination(KeyCode.S, KeyCombination.SHIFT_DOWN, KeyCombination.CONTROL_DOWN))
         addSeparator(fileMenu)
         initMenuItem(fileMenuCloseFile, fileMenu, "Close Tab", KeyCodeCombination(KeyCode.W, KeyCombination.CONTROL_DOWN))
+        initMenuItem(fileMenuSaveAll, fileMenu, "Save All", KeyCodeCombination(KeyCode.S, KeyCombination.ALT_DOWN, KeyCombination.CONTROL_DOWN))
+
+        // Edit menu
+        initMenuItem(editMenuUndo, editMenu, "Undo", KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN))
+        initMenuItem(editMenuRedo, editMenu, "Redo", KeyCodeCombination(KeyCode.Y, KeyCombination.CONTROL_DOWN))
+        addSeparator(editMenu)
+        initMenuItem(editMenuCopy,  editMenu, "Copy", KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN))
+        initMenuItem(editMenuPaste,  editMenu, "Paste", KeyCodeCombination(KeyCode.V, KeyCombination.CONTROL_DOWN))
+        initMenuItem(editMenuCut,  editMenu, "Cut", KeyCodeCombination(KeyCode.X, KeyCombination.CONTROL_DOWN))
+        addSeparator(editMenu)
+        initMenuItem(editMenuFindReplace,  editMenu, "Find...", KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN))
+
+        // Help menu
+        initMenuItem(helpMenuAbout, helpMenu, "About")
 
         initMenu(fileMenu, upperMenuBar, "File")
         initMenu(editMenu, upperMenuBar, "Edit")
-        initMenu(aboutMenu, upperMenuBar, "About")
+        initMenu(helpMenu, upperMenuBar, "Help")
     }
 
     fun addTab(tabPane: TabPane, editor: Editor) {
@@ -101,8 +127,15 @@ class MainScreen : AbstractScreen(600.0, 700.0, "Text Editor") {
         fileMenuSaveAs.setOnAction {
             editorFileHandler.saveAsFileRequest()
         }
+        fileMenuSaveAll.setOnAction {
+            editorFileHandler.saveAllFilesRequest()
+        }
         fileMenuCloseFile.setOnAction {
             editorFileHandler.closeFileRequest()
+        }
+
+        helpMenuAbout.setOnAction {
+            Application.launch(AboutScreen::class.java)
         }
     }
 

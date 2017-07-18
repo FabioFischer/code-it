@@ -30,22 +30,23 @@ class EditorFileHandler(val editorController: EditorController, val fileControll
         chooser.extensionFilters.add(Settings.VALID_EXTENSIONS)
         chooser.initialDirectory = File(Settings.DEFAULT_PROJECTS_DIRECTORY)
 
-        val editor: Editor = editorController.editors?.firstOrNull { it.isActive.not() }!!
         val file = chooser.showOpenDialog(primaryStage)
 
         if (file != null) {
-            openFile(file, editor)
+            openFile(file, editorController.editors?.firstOrNull { it.isActive.not() })
         }
     }
 
     fun saveFileRequest() {
-        val editor: Editor? = editorController.get(root!!.tabPane.selectionModel.selectedItem)
-        saveFile(editor)
+        saveFile(editorController.get(root!!.tabPane.selectionModel.selectedItem))
     }
 
     fun saveAsFileRequest() {
-        val editor: Editor? = editorController.get(root!!.tabPane.selectionModel.selectedItem)
-        saveAsFile(editor)
+        saveAsFile(editorController.get(root!!.tabPane.selectionModel.selectedItem))
+    }
+
+    fun saveAllFilesRequest() {
+        saveAllFiles(editorController.editors!!)
     }
 
     fun closeFileRequest() {
@@ -62,46 +63,60 @@ class EditorFileHandler(val editorController: EditorController, val fileControll
                         closeFile(editor)
                     }
                 }
+            } else {
+                closeFile(editor)
             }
         }
     }
 
-    private fun newFile(editor: Editor, path: String): Boolean {
+    private fun newFile(editor: Editor?, path: String): Boolean {
         if (path.isNullOrEmpty().not()) {
             try {
-                fileController.new(path, editor.tab.text, false)
-                editor.isChanged = false
+                if (editor != null) {
+                    fileController.new(path, editor.tab.text, false)
+                    editor.isChanged = false
 
-                return true
+                    return true
+                }
             } catch (e: IllegalArgumentException) {
-                root?.showDialogMessage(Settings.APP_NAME, "Error at saving ${editor.fileName}.", e.message!!, Alert.AlertType.ERROR)
+                root?.showDialogMessage(Settings.APP_NAME, "Error at saving ${editor?.fileName}.", e.message!!, Alert.AlertType.ERROR)
             }
         }
         return false
     }
 
-    private fun openFile(file: File, editor: Editor) {
-        editorController.enableEditor(editor, file.name)
-        editor.path = file.path.toString()
-        editor.isChanged = false
-        editor.textArea.text = fileController.getContent(file.path.toString(), Settings.APP_CHARSET)
-        root!!.tabPane.selectionModel.select(editor.tab)
+    private fun openFile(file: File, editor: Editor?) {
+        try {
+            if (editor != null) {
+                editorController.enableEditor(editor, file.name)
+                editor.path = file.path.toString()
+                editor.isChanged = false
+                editor.textArea.text = fileController.getContent(file.path.toString(), Settings.APP_CHARSET)
+                root!!.tabPane.selectionModel.select(editor.tab)
 
-        root?.addTab(root!!.tabPane, Editor())
+                root?.addTab(root!!.tabPane, Editor())
+            }
+        } catch (e: IllegalArgumentException) {
+            root?.showDialogMessage(Settings.APP_NAME, "Error at opening file.", e.message!!, Alert.AlertType.ERROR)
+        }
     }
 
     private fun saveFile(editor: Editor?) {
-        if (editor != null) {
-            if (editor.path.isNullOrEmpty()) {
-                val chooser = FileChooser()
+        try {
+            if (editor != null) {
+                if (editor.path.isNullOrEmpty()) {
+                    val chooser = FileChooser()
 
-                chooser.title = "Save File"
-                val file = chooser.showSaveDialog(primaryStage)
-                newFile(editor, file.path.toString())
-            } else {
-                fileController.save(editor.path!!, editor.textArea.text)
-                editor.isChanged = false
+                    chooser.title = "Save File"
+                    val file = chooser.showSaveDialog(primaryStage)
+                    newFile(editor, file.path.toString())
+                } else {
+                    fileController.save(editor.path!!, editor.textArea.text)
+                    editor.isChanged = false
+                }
             }
+        } catch (e: IllegalArgumentException) {
+            root?.showDialogMessage(Settings.APP_NAME, "Error at saving ${editor?.fileName}.", e.message!!, Alert.AlertType.ERROR)
         }
     }
 
@@ -113,6 +128,10 @@ class EditorFileHandler(val editorController: EditorController, val fileControll
             val file = chooser.showSaveDialog(primaryStage)
             newFile(editor, file.path.toString())
         }
+    }
+
+    private fun saveAllFiles(editors: ArrayList<Editor>) {
+        for (editor in editors) saveFile(editor)
     }
 
     private fun closeFile(editor: Editor?) {

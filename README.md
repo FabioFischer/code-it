@@ -1,4 +1,4 @@
-# txt-editor - codit(?), code-it(?)
+# code-it
 
 Multi tabbed text editor implementation using Kotlin and JavaFX
 
@@ -7,8 +7,8 @@ Multi tabbed text editor implementation using Kotlin and JavaFX
  - [X] Create UI based on editors(tabs)
  - [X] Implement tab listener - Click on the tab with "+" on title to add more tabs; delete tabs clicking on "x" or using middle mouse button
  - [X] Create a upper menu containing the main segments (file, editor, view, about). Create the items
- - [ ] Use JavaFX FileChooser on file actions
- - [ ] Link shortcuts to file actions
+ - [X] Use JavaFX FileChooser on file actions
+ - [X] Link shortcuts to file actions
  - [ ] Create a "About" frame
  - [ ] Create a "Find and Replace" frame
  - [ ] Create a left menu containing basic file actions (new, open, save) with icons
@@ -18,7 +18,7 @@ Multi tabbed text editor implementation using Kotlin and JavaFX
 
 ## Future features
  - [ ] Implement ~somehow~ Undo/Redo actions
- - [ ] Custom styles
+ - [ ] Custom stylesasdas
  - [ ] Add a folder structure explorer inside app
  - [ ] Recover the last session files
  - [ ] Highlight programming keywords based on current file extension

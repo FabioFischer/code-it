@@ -1,27 +1,40 @@
 package main.view.screen
 
 import javafx.scene.Scene
+import javafx.scene.control.Label
 import javafx.scene.layout.BorderPane
 import javafx.stage.Stage
+import main.util.Settings
 
-class AboutScreen : AbstractScreen(800.0, 900.0, "Text Editor"), java.awt.event.ActionListener {
+class AboutScreen: AbstractScreen(800.0, 900.0, Settings.APP_NAME) {
+    val labelAppName = Label()
+    val labelAboutDescription = Label()
+    val labelAboutAuthor = Label()
+    val labelAboutVersion = Label()
+
     override fun start(primaryStage: Stage?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+        val root = BorderPane()
 
-    override fun actionPerformed(e: java.awt.event.ActionEvent?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        initComponents(primaryStage!!)
+        initScene(root)
     }
 
     override fun initScene(pane: BorderPane): Scene {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//        pane.top = upperMenuBar
+//        pane.left = leftMenuBar
+//        pane.center = tabPane
+
+        val scene = Scene(pane, screenHeight, screenWidth)
+
+        pane.prefHeightProperty().bind(scene.heightProperty())
+        pane.prefWidthProperty().bind(scene.widthProperty())
+
+        return scene
     }
 
     override fun initComponents(primaryStage: Stage) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun initMenus() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
