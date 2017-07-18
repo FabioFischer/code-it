@@ -14,6 +14,7 @@ Multi tabbed text editor implementation using Kotlin and JavaFX
  - [ ] Create a left menu containing basic file actions (new, open, save) with icons
  - [ ] Create a bottom menu containing: line and column of keyboard cursor, file extension type and current charset
  - [ ] Fix line counter textArea to focus on the same line as the main text area
+ - [ ] Define App name/icon
  - [ ] Style components using css
 
 ## Future features
