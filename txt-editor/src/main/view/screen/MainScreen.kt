@@ -21,6 +21,7 @@ class MainScreen : AbstractScreen(600.0, 700.0, Settings.APP_NAME) {
 
     private val fileMenu = Menu()
     private val editMenu = Menu()
+    private val searchMenu = Menu()
     private val helpMenu = Menu()
 
     private val fileMenuNew = MenuItem()
@@ -32,10 +33,13 @@ class MainScreen : AbstractScreen(600.0, 700.0, Settings.APP_NAME) {
 
     private val editMenuUndo = MenuItem()
     private val editMenuRedo = MenuItem()
+    private val editMenuSelectAll = MenuItem()
+    private val editMenuClear = MenuItem()
     private val editMenuCut = MenuItem()
     private val editMenuCopy = MenuItem()
     private val editMenuPaste = MenuItem()
-    private val editMenuFindReplace = MenuItem()
+
+    private val searchMenuFindReplace = MenuItem()
 
     private val helpMenuAbout = MenuItem()
 
@@ -94,17 +98,22 @@ class MainScreen : AbstractScreen(600.0, 700.0, Settings.APP_NAME) {
         initMenuItem(editMenuUndo, editMenu, "Undo", KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN))
         initMenuItem(editMenuRedo, editMenu, "Redo", KeyCodeCombination(KeyCode.Y, KeyCombination.CONTROL_DOWN))
         addSeparator(editMenu)
+        initMenuItem(editMenuSelectAll,  editMenu, "Select All", KeyCodeCombination(KeyCode.A, KeyCombination.CONTROL_DOWN))
+        initMenuItem(editMenuClear,  editMenu, "Clear")
+        addSeparator(editMenu)
         initMenuItem(editMenuCopy,  editMenu, "Copy", KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN))
         initMenuItem(editMenuPaste,  editMenu, "Paste", KeyCodeCombination(KeyCode.V, KeyCombination.CONTROL_DOWN))
         initMenuItem(editMenuCut,  editMenu, "Cut", KeyCodeCombination(KeyCode.X, KeyCombination.CONTROL_DOWN))
-        addSeparator(editMenu)
-        initMenuItem(editMenuFindReplace,  editMenu, "Find...", KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN))
+
+        //Search Menu
+        initMenuItem(searchMenuFindReplace,  searchMenu, "Find", KeyCodeCombination(KeyCode.F, KeyCombination.CONTROL_DOWN))
 
         // Help menu
         initMenuItem(helpMenuAbout, helpMenu, "About")
 
         initMenu(fileMenu, upperMenuBar, "File")
         initMenu(editMenu, upperMenuBar, "Edit")
+        initMenu(searchMenu, upperMenuBar, "Search")
         initMenu(helpMenu, upperMenuBar, "Help")
     }
 
@@ -133,9 +142,11 @@ class MainScreen : AbstractScreen(600.0, 700.0, Settings.APP_NAME) {
         fileMenuCloseFile.setOnAction {
             editorFileHandler.closeFileRequest()
         }
-
+        searchMenuFindReplace.setOnAction {
+            SearchScreen().start(Stage())
+        }
         helpMenuAbout.setOnAction {
-            Application.launch(AboutScreen::class.java)
+            AboutScreen().start(Stage())
         }
     }
 

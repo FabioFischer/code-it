@@ -27,7 +27,7 @@ class EditorFileHandler(val editorController: EditorController, val fileControll
         val chooser = FileChooser()
 
         chooser.title = "Open File"
-        chooser.extensionFilters.add(Settings.VALID_EXTENSIONS)
+        chooser.extensionFilters.addAll(Settings.VALID_EXTENSIONS)
         chooser.initialDirectory = File(Settings.DEFAULT_PROJECTS_DIRECTORY)
 
         val file = chooser.showOpenDialog(primaryStage)
@@ -108,6 +108,8 @@ class EditorFileHandler(val editorController: EditorController, val fileControll
                     val chooser = FileChooser()
 
                     chooser.title = "Save File"
+                    chooser.extensionFilters.addAll(Settings.VALID_EXTENSIONS)
+
                     val file = chooser.showSaveDialog(primaryStage)
                     newFile(editor, file.path.toString())
                 } else {
@@ -125,6 +127,8 @@ class EditorFileHandler(val editorController: EditorController, val fileControll
             val chooser = FileChooser()
 
             chooser.title = "Save File"
+            chooser.extensionFilters.addAll(Settings.VALID_EXTENSIONS)
+
             val file = chooser.showSaveDialog(primaryStage)
             newFile(editor, file.path.toString())
         }

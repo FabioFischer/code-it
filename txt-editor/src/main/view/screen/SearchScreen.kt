@@ -1,30 +1,53 @@
 package main.view.screen
 
 import javafx.scene.Scene
+import javafx.scene.control.Button
+import javafx.scene.control.TextField
+import javafx.scene.control.ToggleButton
 import javafx.scene.layout.BorderPane
 import javafx.stage.Stage
-import main.controller.TextController
+import main.util.Resources
+import main.util.Settings
 
-class SearchScreen : AbstractScreen(800.0, 900.0, "Text Editor"), java.awt.event.ActionListener {
-    private val textController: TextController = TextController()
+class SearchScreen : AbstractScreen(500.0, 600.0, Settings.APP_NAME) {
+    val textFind = TextField()
+    val textReplace = TextField()
 
-    override fun start(primaryStage: Stage?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    val buttonFind = Button()
+    val buttonFindNext = Button()
+    val buttonReplace = Button()
+    val buttonReplaceAll = Button()
 
-    override fun actionPerformed(e: java.awt.event.ActionEvent?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    val toggleSearchDirection = ToggleButton()
+
+    override fun start(primaryStage: Stage) {
+        val root = BorderPane()
+
+        initComponents(primaryStage)
+
+        primaryStage.scene = initScene(root)
+        primaryStage.title = screenName
+        primaryStage.icons.add(Resources.appIcon)
+
+        primaryStage.show()
     }
 
     override fun initScene(pane: BorderPane): Scene {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//        pane.top = upperMenuBar
+//        pane.left = leftMenuBar
+//        pane.center = tabPane
+
+        val scene = Scene(pane, screenHeight, screenWidth)
+
+        pane.prefHeightProperty().bind(scene.heightProperty())
+        pane.prefWidthProperty().bind(scene.widthProperty())
+
+        return scene
     }
 
     override fun initComponents(primaryStage: Stage) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun initMenus() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

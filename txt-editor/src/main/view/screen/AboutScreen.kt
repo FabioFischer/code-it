@@ -4,19 +4,25 @@ import javafx.scene.Scene
 import javafx.scene.control.Label
 import javafx.scene.layout.BorderPane
 import javafx.stage.Stage
+import main.util.Resources
 import main.util.Settings
 
-class AboutScreen: AbstractScreen(800.0, 900.0, Settings.APP_NAME) {
+class AboutScreen: AbstractScreen(500.0, 600.0, Settings.APP_NAME) {
     val labelAppName = Label()
     val labelAboutDescription = Label()
     val labelAboutAuthor = Label()
     val labelAboutVersion = Label()
 
-    override fun start(primaryStage: Stage?) {
+    override fun start(primaryStage: Stage) {
         val root = BorderPane()
 
-        initComponents(primaryStage!!)
-        initScene(root)
+        initComponents(primaryStage)
+
+        primaryStage.scene = initScene(root)
+        primaryStage.title = screenName
+        primaryStage.icons.add(Resources.appIcon)
+
+        primaryStage.show()
     }
 
     override fun initScene(pane: BorderPane): Scene {

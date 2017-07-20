@@ -1,15 +1,16 @@
 package main.view.screen
 
+import javafx.scene.input.KeyCodeCombination
 import javafx.application.Application
 import javafx.scene.control.*
 import main.controller.EditorController
 import main.controller.FileController
-import javafx.scene.input.KeyCodeCombination
+import main.controller.TextController
 
 abstract class AbstractScreen(val screenWidth: Double, val screenHeight: Double, val screenName: String) : Application(), IScreenBuilder {
-
     val fileController = FileController()
     val editorController = EditorController()
+    val textController = TextController()
 
     fun initMenu(menu: Menu, menuBar: MenuBar, text: String) {
         menu.text = text
