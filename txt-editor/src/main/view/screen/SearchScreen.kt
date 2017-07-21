@@ -1,53 +1,62 @@
 package main.view.screen
 
+import javafx.geometry.Pos
 import javafx.scene.Scene
-import javafx.scene.control.Button
-import javafx.scene.control.TextField
-import javafx.scene.control.ToggleButton
-import javafx.scene.layout.BorderPane
+import javafx.scene.control.*
+import javafx.scene.layout.HBox
+import javafx.scene.layout.VBox
 import javafx.stage.Stage
 import main.util.Resources
 import main.util.Settings
+import main.view.handler.SearchTextHandler
 
-class SearchScreen : AbstractScreen(500.0, 600.0, Settings.APP_NAME) {
-    val textFind = TextField()
-    val textReplace = TextField()
+class SearchScreen : AbstractScreen(200.0, 400.0, Settings.APP_NAME) {
+    var boxTextFind = HBox()
+    var boxTextReplace = HBox()
+
+    val boxWrap = HBox()
+    val boxLeft = VBox()
+    val boxRight = VBox()
 
     val buttonFind = Button()
     val buttonFindNext = Button()
     val buttonReplace = Button()
     val buttonReplaceAll = Button()
 
-    val toggleSearchDirection = ToggleButton()
+    val radioSearchDirection = RadioButton()
 
     override fun start(primaryStage: Stage) {
-        val root = BorderPane()
-
         initComponents(primaryStage)
 
-        primaryStage.scene = initScene(root)
+        primaryStage.scene = initScene()
         primaryStage.title = screenName
         primaryStage.icons.add(Resources.appIcon)
 
         primaryStage.show()
     }
 
-    override fun initScene(pane: BorderPane): Scene {
-//        pane.top = upperMenuBar
-//        pane.left = leftMenuBar
-//        pane.center = tabPane
+    override fun initScene(): Scene {
+        val scene = Scene(boxWrap, screenHeight, screenWidth)
 
-        val scene = Scene(pane, screenHeight, screenWidth)
-
-        pane.prefHeightProperty().bind(scene.heightProperty())
-        pane.prefWidthProperty().bind(scene.widthProperty())
+        boxWrap.prefHeightProperty().bind(scene.heightProperty())
+        boxWrap.prefWidthProperty().bind(scene.widthProperty())
 
         return scene
     }
 
     override fun initComponents(primaryStage: Stage) {
-    }
+        boxTextFind = initLabelTextField("Find", 5.0)
+        boxTextReplace = initLabelTextField("Replace", 5.0)
 
-    override fun initMenus() {
+        initRadioButton(radioSearchDirection, "Search Up")
+
+        initButton(buttonFind, "Find", SearchTextHandler.onSearchFindRequest(this))
+        initButton(buttonFindNext, "Find Next", SearchTextHandler.onSearchFindRequest(this))
+        initButton(buttonReplace, "Replace", SearchTextHandler.onSearchFindRequest(this))
+        initButton(buttonReplaceAll, "Replace All", SearchTextHandler.onSearchFindRequest(this))
+
+        initVBox(boxLeft, 7.0, Pos.CENTER_RIGHT, boxTextFind, boxTextReplace, radioSearchDirection)
+        initVBox(boxRight, 7.0, Pos.CENTER_LEFT, buttonFind, buttonFindNext, buttonReplace, buttonReplaceAll)
+        initHBox(boxWrap, 35.0, Pos.CENTER, boxLeft, boxRight)
     }
 }

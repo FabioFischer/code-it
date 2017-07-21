@@ -9,7 +9,7 @@ Multi tabbed text editor implementation using Kotlin and JavaFX
  - [X] Create a upper menu containing the main segments (file, editor, view, about). Create the items
  - [X] Use JavaFX FileChooser on file actions
  - [X] Link shortcuts to file actions
- - [ ] Create a "About" frame
+ - [X] Create a "About" frame
  - [ ] Create a "Find and Replace" frame
  - [ ] Create a left menu containing basic file actions (new, open, save) with icons
  - [ ] Create a bottom menu containing: line and column of keyboard cursor, file extension type and current charset

@@ -47,11 +47,9 @@ class MainScreen : AbstractScreen(600.0, 700.0, Settings.APP_NAME) {
     val tabPane: TabPane = TabPane()
 
     override fun start(primaryStage: Stage) {
-        val root = BorderPane()
-
         initComponents(primaryStage)
 
-        primaryStage.scene = initScene(root)
+        primaryStage.scene = initScene()
         primaryStage.title = screenName
         primaryStage.icons.add(Resources.appIcon)
         primaryStage.isMaximized = true
@@ -62,7 +60,9 @@ class MainScreen : AbstractScreen(600.0, 700.0, Settings.APP_NAME) {
         primaryStage.show()
     }
 
-    override fun initScene(pane: BorderPane): Scene {
+    override fun initScene(): Scene {
+        val pane = BorderPane()
+
         pane.top = upperMenuBar
         pane.left = leftMenuBar
         pane.center = tabPane
@@ -83,7 +83,7 @@ class MainScreen : AbstractScreen(600.0, 700.0, Settings.APP_NAME) {
         tabPane.tabs.addAll(editorController.getAllTabs()!!)
     }
 
-    override fun initMenus() {
+    private fun initMenus() {
         // File menu
         initMenuItem(fileMenuNew, fileMenu, "New", KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN))
         addSeparator(fileMenu)
