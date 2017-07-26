@@ -10,9 +10,14 @@ import main.util.Resources
 import main.util.Settings
 import main.view.handler.SearchTextHandler
 
-class SearchScreen : AbstractScreen(200.0, 400.0, Settings.APP_NAME) {
+class SearchScreen : AbstractScreen(200.0, 400.0, "${Settings.APP_NAME} - Search") {
+    var mainScreen: MainScreen? = null
+
     var boxTextFind = HBox()
     var boxTextReplace = HBox()
+
+    val textFind = TextField()
+    val textReplace = TextField()
 
     val boxWrap = HBox()
     val boxLeft = VBox()
@@ -25,7 +30,13 @@ class SearchScreen : AbstractScreen(200.0, 400.0, Settings.APP_NAME) {
 
     val radioSearchDirection = RadioButton()
 
+    fun startScreen(mainScreen: MainScreen) {
+        this.mainScreen = mainScreen
+        start(Stage())
+    }
+
     override fun start(primaryStage: Stage) {
+        stage = primaryStage
         initComponents(primaryStage)
 
         primaryStage.scene = initScene()
@@ -45,8 +56,8 @@ class SearchScreen : AbstractScreen(200.0, 400.0, Settings.APP_NAME) {
     }
 
     override fun initComponents(primaryStage: Stage) {
-        boxTextFind = initLabelTextField("Find", 5.0)
-        boxTextReplace = initLabelTextField("Replace", 5.0)
+        boxTextFind = initLabelTextField(textFind, "Find", 5.0)
+        boxTextReplace = initLabelTextField(textReplace, "Replace", 5.0)
 
         initRadioButton(radioSearchDirection, "Search Up")
 

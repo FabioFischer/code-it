@@ -1,6 +1,5 @@
 package main.view.screen
 
-import javafx.application.Application
 import javafx.stage.Stage
 import javafx.scene.Scene
 import javafx.scene.control.*
@@ -47,6 +46,7 @@ class MainScreen : AbstractScreen(600.0, 700.0, Settings.APP_NAME) {
     val tabPane: TabPane = TabPane()
 
     override fun start(primaryStage: Stage) {
+        stage = primaryStage
         initComponents(primaryStage)
 
         primaryStage.scene = initScene()
@@ -143,10 +143,10 @@ class MainScreen : AbstractScreen(600.0, 700.0, Settings.APP_NAME) {
             editorFileHandler.closeFileRequest()
         }
         searchMenuFindReplace.setOnAction {
-            SearchScreen().start(Stage())
+            SearchScreen().startScreen(this)
         }
         helpMenuAbout.setOnAction {
-            AboutScreen().start(Stage())
+            AboutScreen().startScreen(this)
         }
     }
 

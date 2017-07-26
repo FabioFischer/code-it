@@ -4,6 +4,7 @@ import javafx.event.Event
 import javafx.event.EventHandler
 import javafx.scene.control.Tab
 import main.model.Editor
+import main.util.Settings
 import main.view.screen.MainScreen
 
 class EditorTabHandler {
@@ -17,6 +18,8 @@ class EditorTabHandler {
                         root.editorController.enableEditor(editor)
                         root.addTab(root.tabPane, Editor())
                     }
+
+                    root.rename("${editor.fileName} - ${Settings.APP_NAME}")
                 }
             }
         }

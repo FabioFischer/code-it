@@ -13,7 +13,7 @@ object Settings {
 
     val NEW_FILE_NAME: String = "untitled-#"
     val APP_CHARSET: Charset = Charsets.UTF_8
-    val DEFAULT_PROJECTS_DIRECTORY: String = "C:/Users/fabio.fischer/Desktop"
+    val DEFAULT_PROJECTS_DIRECTORY: String = "C:/Code-iT Projects"
     val VALID_EXTENSIONS: List<FileChooser.ExtensionFilter> = listOf(FileChooser.ExtensionFilter("All files", "*"))
 
     val LINE_COUNTER_WIDTH: Double = 20.0

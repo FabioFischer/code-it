@@ -17,6 +17,7 @@ class EditorTextListener(var editor: Editor): ChangeListener<String>{
         for (i in 1..textLines.size) {str += "$i\n"}
 
         editor.lineCounter.text = str
+        editor.lineCounter.scrollTop = Double.MAX_VALUE
     }
 
     companion object  {

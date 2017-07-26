@@ -10,17 +10,25 @@ import javafx.scene.control.*
 import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
 import javafx.scene.text.TextAlignment
+import javafx.stage.Stage
 import main.controller.EditorController
 import main.controller.FileController
 import main.controller.TextController
 
-abstract class AbstractScreen(val screenWidth: Double, val screenHeight: Double, val screenName: String) : Application(), IScreenBuilder {
+abstract class AbstractScreen(val screenWidth: Double, val screenHeight: Double, var screenName: String) : Application(), IScreenBuilder {
+    var stage: Stage? = null
+
     val fileController = FileController()
     val editorController = EditorController()
     val textController = TextController()
 
     fun addSeparator(menu: Menu) {
         menu.items.add(SeparatorMenuItem())
+    }
+
+    fun rename(screenName: String) {
+        this.screenName = screenName
+        stage?.title = screenName
     }
 
     fun initButton(button: Button, text: String, listener: EventHandler<ActionEvent>) {
@@ -41,9 +49,8 @@ abstract class AbstractScreen(val screenWidth: Double, val screenHeight: Double,
         label.textAlignment = textAlignment
     }
 
-    fun initLabelTextField(promptText: String, spacing: Double): HBox {
+    fun initLabelTextField(textField: TextField, promptText: String, spacing: Double): HBox {
         val label = Label(promptText)
-        val textField = TextField()
         val hBox = HBox()
 
         initHBox(hBox, spacing, Pos.CENTER_RIGHT, label, textField)

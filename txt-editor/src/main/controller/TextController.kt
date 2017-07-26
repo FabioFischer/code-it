@@ -1,23 +1,23 @@
 package main.controller
 
+import javafx.scene.control.TextArea
 import main.util.Validator
-import javax.swing.JTextArea
 
 class TextController : ITextController {
     private val serialVersionUID = 1L
 
     private val NO_MATCH_FOUND: Int = -1
 
-    private fun selectText(textArea: JTextArea, index: Int, textSegment: String) {
+    private fun selectText(textArea: TextArea, index: Int, textSegment: String) {
         if (index != NO_MATCH_FOUND)
-            textArea.select(index, (index + textSegment.length))
+            textArea.selectRange(index, (index + textSegment.length))
     }
 
     private fun replaceAll(text: String, textSegment: String, replaceWith: String): String?{
         return text.replace(Validator.validateInput(textSegment, "Text input"), Validator.validateInput(replaceWith, "Replace text input"))
     }
 
-    override fun find(text: String, textSegment: String, lastIndex: Int): Int {
+    private fun find(text: String, textSegment: String, lastIndex: Int): Int {
             val index = text.toLowerCase().indexOf(Validator.validateInput(textSegment, "Text input").toLowerCase(), lastIndex)
 
             if (index == NO_MATCH_FOUND)
@@ -26,28 +26,28 @@ class TextController : ITextController {
             return index
     }
 
-    override fun findFirst(textArea: JTextArea, textSegment: String) {
-        val index = this.find(textArea.text, textSegment)
+    override fun findFirst(textArea: TextArea, textSegment: String) {
+        val index = this.find(textArea.text, textSegment, 0)
         this.selectText(textArea, index, textSegment)
     }
 
-    override fun findNext(textArea: JTextArea, textSegment: String) {
+    override fun findNext(textArea: TextArea, textSegment: String) {
         val selectedTxt: String? = textArea.selectedText
 
         if (selectedTxt.equals("") || selectedTxt.equals(textSegment).not()) {
             findFirst(textArea, textSegment)
         } else {
-            val index = this.find(textArea.text, textSegment, textArea.selectionStart)
+            val index = this.find(textArea.text, textSegment, textArea.selection.start)
             selectText(textArea, index, textSegment)
         }
     }
 
-    override fun replace(textArea: JTextArea, textSegment: String, replaceWith: String) {
+    override fun replace(textArea: TextArea, textSegment: String, replaceWith: String) {
         findFirst(textArea, textSegment)
         textArea.replaceSelection(replaceWith)
     }
 
-    override fun replaceAll(textArea: JTextArea, textSegment: String, replaceWith: String) {
+    override fun replaceAll(textArea: TextArea, textSegment: String, replaceWith: String) {
         textArea.text = this.replaceAll(textArea.text, textSegment, replaceWith)
     }
 }

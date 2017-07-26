@@ -9,7 +9,9 @@ import javafx.stage.Stage
 import main.util.Resources
 import main.util.Settings
 
-class AboutScreen: AbstractScreen(250.0, 400.0, Settings.APP_NAME) {
+class AboutScreen: AbstractScreen(250.0, 400.0, "${Settings.APP_NAME} - About") {
+    var mainScreen: MainScreen? = null
+
     val boxWrap = VBox()
     val boxAppInfo = VBox()
     val boxAboutInfo = VBox()
@@ -21,7 +23,13 @@ class AboutScreen: AbstractScreen(250.0, 400.0, Settings.APP_NAME) {
     val labelAboutDescription = Label()
     val labelAboutAuthor = Label()
 
+    fun startScreen(mainScreen: MainScreen) {
+        this.mainScreen = mainScreen
+        start(Stage())
+    }
+
     override fun start(primaryStage: Stage) {
+        stage = primaryStage
         initComponents(primaryStage)
 
         primaryStage.scene = initScene()

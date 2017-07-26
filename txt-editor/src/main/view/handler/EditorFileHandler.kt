@@ -109,6 +109,7 @@ class EditorFileHandler(val editorController: EditorController, val fileControll
 
                     chooser.title = "Save File"
                     chooser.extensionFilters.addAll(Settings.VALID_EXTENSIONS)
+                    chooser.initialDirectory = File(Settings.DEFAULT_PROJECTS_DIRECTORY)
 
                     val file = chooser.showSaveDialog(primaryStage)
                     newFile(editor, file.path.toString())
@@ -123,14 +124,19 @@ class EditorFileHandler(val editorController: EditorController, val fileControll
     }
 
     private fun saveAsFile(editor: Editor?) {
-        if (editor != null) {
-            val chooser = FileChooser()
+        try {
+            if (editor != null) {
+                val chooser = FileChooser()
 
-            chooser.title = "Save File"
-            chooser.extensionFilters.addAll(Settings.VALID_EXTENSIONS)
+                chooser.title = "Save File"
+                chooser.extensionFilters.addAll(Settings.VALID_EXTENSIONS)
+                chooser.initialDirectory = File(Settings.DEFAULT_PROJECTS_DIRECTORY)
 
-            val file = chooser.showSaveDialog(primaryStage)
-            newFile(editor, file.path.toString())
+                val file = chooser.showSaveDialog(primaryStage)
+                newFile(editor, file.path.toString())
+            }
+        } catch(e: IllegalArgumentException) {
+            root?.showDialogMessage(Settings.APP_NAME, "Error at saving ${editor?.fileName}.", e.message!!, Alert.AlertType.ERROR)
         }
     }
 
