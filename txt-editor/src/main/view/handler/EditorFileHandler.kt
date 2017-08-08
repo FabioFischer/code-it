@@ -4,11 +4,11 @@ import javafx.scene.control.Alert
 import javafx.scene.control.ButtonType
 import javafx.stage.FileChooser
 import javafx.stage.Stage
-import main.controller.EditorController
-import main.controller.FileController
+import main.controller.impl.EditorController
+import main.controller.impl.FileController
 import main.model.Editor
 import main.util.Settings
-import main.view.screen.MainScreen
+import main.view.screen.impl.MainScreen
 import java.io.File
 
 class EditorFileHandler(val editorController: EditorController, val fileController: FileController) {
@@ -112,7 +112,10 @@ class EditorFileHandler(val editorController: EditorController, val fileControll
                     chooser.initialDirectory = File(Settings.DEFAULT_PROJECTS_DIRECTORY)
 
                     val file = chooser.showSaveDialog(primaryStage)
-                    newFile(editor, file.path.toString())
+
+                    if (file != null) {
+                        newFile(editor, file.path.toString())
+                    }
                 } else {
                     fileController.save(editor.path!!, editor.textArea.text)
                     editor.isChanged = false
@@ -133,7 +136,10 @@ class EditorFileHandler(val editorController: EditorController, val fileControll
                 chooser.initialDirectory = File(Settings.DEFAULT_PROJECTS_DIRECTORY)
 
                 val file = chooser.showSaveDialog(primaryStage)
-                newFile(editor, file.path.toString())
+
+                if (file != null) {
+                    newFile(editor, file.path.toString())
+                }
             }
         } catch(e: IllegalArgumentException) {
             root?.showDialogMessage(Settings.APP_NAME, "Error at saving ${editor?.fileName}.", e.message!!, Alert.AlertType.ERROR)

@@ -1,4 +1,4 @@
-package main.view.screen
+package main.view.screen.impl
 
 import javafx.geometry.Pos
 import javafx.scene.Scene

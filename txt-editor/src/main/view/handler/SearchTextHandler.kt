@@ -4,7 +4,7 @@ import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.scene.control.Alert
 import main.util.Settings
-import main.view.screen.SearchScreen
+import main.view.screen.impl.SearchScreen
 
 class SearchTextHandler {
     class onSearchFindRequest(var root: SearchScreen): EventHandler<ActionEvent> {

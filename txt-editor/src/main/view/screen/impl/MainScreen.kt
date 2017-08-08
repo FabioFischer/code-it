@@ -1,4 +1,4 @@
-package main.view.screen
+package main.view.screen.impl
 
 import javafx.stage.Stage
 import javafx.scene.Scene
@@ -148,6 +148,7 @@ class MainScreen : AbstractScreen(600.0, 700.0, Settings.APP_NAME) {
         helpMenuAbout.setOnAction {
             AboutScreen().startScreen(this)
         }
+
     }
 
     private fun linkEditorHandlers() {

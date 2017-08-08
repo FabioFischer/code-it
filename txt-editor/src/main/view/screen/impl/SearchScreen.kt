@@ -1,4 +1,4 @@
-package main.view.screen
+package main.view.screen.impl
 
 import javafx.geometry.Pos
 import javafx.scene.Scene
@@ -62,9 +62,9 @@ class SearchScreen : AbstractScreen(200.0, 400.0, "${Settings.APP_NAME} - Search
         initRadioButton(radioSearchDirection, "Search Up")
 
         initButton(buttonFind, "Find", SearchTextHandler.onSearchFindRequest(this))
-        initButton(buttonFindNext, "Find Next", SearchTextHandler.onSearchFindRequest(this))
-        initButton(buttonReplace, "Replace", SearchTextHandler.onSearchFindRequest(this))
-        initButton(buttonReplaceAll, "Replace All", SearchTextHandler.onSearchFindRequest(this))
+        initButton(buttonFindNext, "Find Next", SearchTextHandler.onSearchFindNextRequest(this))
+        initButton(buttonReplace, "Replace", SearchTextHandler.onSearchReplaceRequest(this))
+        initButton(buttonReplaceAll, "Replace All", SearchTextHandler.onSearchReplaceAllRequest(this))
 
         initVBox(boxLeft, 7.0, Pos.CENTER_RIGHT, boxTextFind, boxTextReplace, radioSearchDirection)
         initVBox(boxRight, 7.0, Pos.CENTER_LEFT, buttonFind, buttonFindNext, buttonReplace, buttonReplaceAll)

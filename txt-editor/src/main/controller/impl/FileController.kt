@@ -1,5 +1,6 @@
-package main.controller
+package main.controller.impl
 
+import main.controller.IFileController
 import java.io.*
 import java.nio.charset.Charset
 import java.nio.file.Files

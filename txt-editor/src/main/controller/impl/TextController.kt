@@ -1,6 +1,7 @@
-package main.controller
+package main.controller.impl
 
 import javafx.scene.control.TextArea
+import main.controller.ITextController
 import main.util.Validator
 
 class TextController : ITextController {

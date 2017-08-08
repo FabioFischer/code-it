@@ -1,6 +1,7 @@
-package main.controller;
+package main.controller.impl;
 
 import javafx.scene.control.Tab
+import main.controller.IEditorController
 import main.model.Editor
 import main.util.Settings
 import main.util.Validator

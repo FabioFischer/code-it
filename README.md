@@ -10,16 +10,16 @@ Multi tabbed text editor implementation using Kotlin and JavaFX
  - [X] Use JavaFX FileChooser on file actions
  - [X] Link shortcuts to file actions
  - [X] Create a "About" frame
- - [ ] Create a "Find and Replace" frame
+ - [X] Create a "Find and Replace" frame
  - [ ] Create a left menu containing basic file actions (new, open, save) with icons
  - [ ] Create a bottom menu containing: line and column of keyboard cursor, file extension type and current charset
  - [ ] Fix line counter textArea to focus on the same line as the main text area
- - [ ] Define App name/icon
+ - [X] Define App name/icon
  - [ ] Style components using css
 
 ## Future features
  - [ ] Implement ~somehow~ Undo/Redo actions
- - [ ] Custom stylesasdas
+ - [ ] Custom styles
  - [ ] Add a folder structure explorer inside app
  - [ ] Recover the last session files
- - [ ] Highlight programming keywords based on current file extension
+ - [ ] Lexical analysis

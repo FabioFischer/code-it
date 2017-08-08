@@ -5,7 +5,7 @@ import javafx.event.EventHandler
 import javafx.scene.control.Tab
 import main.model.Editor
 import main.util.Settings
-import main.view.screen.MainScreen
+import main.view.screen.impl.MainScreen
 
 class EditorTabHandler {
     class onSelectionRequest(var root: MainScreen): EventHandler<Event> {

@@ -1,4 +1,4 @@
-package main.view.screen
+package main.view.screen.impl
 
 import javafx.scene.input.KeyCodeCombination
 import javafx.application.Application
@@ -11,9 +11,10 @@ import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
 import javafx.scene.text.TextAlignment
 import javafx.stage.Stage
-import main.controller.EditorController
-import main.controller.FileController
-import main.controller.TextController
+import main.controller.impl.EditorController
+import main.controller.impl.FileController
+import main.controller.impl.TextController
+import main.view.screen.IScreenBuilder
 
 abstract class AbstractScreen(val screenWidth: Double, val screenHeight: Double, var screenName: String) : Application(), IScreenBuilder {
     var stage: Stage? = null
