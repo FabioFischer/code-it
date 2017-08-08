@@ -1,5 +1,6 @@
 package main.view.screen.impl
 
+import javafx.geometry.Pos
 import javafx.stage.Stage
 import javafx.scene.Scene
 import javafx.scene.control.*
@@ -7,6 +8,8 @@ import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyCodeCombination
 import javafx.scene.input.KeyCombination
 import javafx.scene.layout.BorderPane
+import javafx.scene.layout.HBox
+import javafx.scene.text.TextAlignment
 import main.model.Editor
 import main.util.Resources
 import main.util.Settings
@@ -17,6 +20,7 @@ import main.view.listener.EditorTextListener
 class MainScreen : AbstractScreen(600.0, 700.0, Settings.APP_NAME) {
     private val upperMenuBar = MenuBar()
     private val leftMenuBar = MenuBar()
+    private val bottomBar = HBox()
 
     private val fileMenu = Menu()
     private val editMenu = Menu()
@@ -39,8 +43,11 @@ class MainScreen : AbstractScreen(600.0, 700.0, Settings.APP_NAME) {
     private val editMenuPaste = MenuItem()
 
     private val searchMenuFindReplace = MenuItem()
-
     private val helpMenuAbout = MenuItem()
+
+    private val caretPosition = Label()
+    private val fileExtension = Label()
+    private val fileCharset = Label()
 
     val editorFileHandler = EditorFileHandler(editorController, fileController)
     val tabPane: TabPane = TabPane()
@@ -66,6 +73,7 @@ class MainScreen : AbstractScreen(600.0, 700.0, Settings.APP_NAME) {
         pane.top = upperMenuBar
         pane.left = leftMenuBar
         pane.center = tabPane
+        pane.bottom = bottomBar
 
         val scene = Scene(pane,  this.screenHeight, this.screenWidth)
 
@@ -77,10 +85,20 @@ class MainScreen : AbstractScreen(600.0, 700.0, Settings.APP_NAME) {
 
     override fun initComponents(primaryStage: Stage) {
         initMenus()
+        initBoxes()
+
         linkEditorHandlers()
         linkMenuItemHandlers()
 
         tabPane.tabs.addAll(editorController.getAllTabs()!!)
+    }
+
+    private fun initBoxes() {
+        initLabel(caretPosition,  "Ln 1 Col 1", TextAlignment.RIGHT)
+        initLabel(fileCharset,  "UTF-8", TextAlignment.RIGHT)
+        initLabel(fileExtension,  "Plain Text", TextAlignment.RIGHT)
+
+        initHBox(bottomBar, 35.0, Pos.BOTTOM_RIGHT, caretPosition, fileCharset, fileExtension)
     }
 
     private fun initMenus() {
@@ -156,8 +174,20 @@ class MainScreen : AbstractScreen(600.0, 700.0, Settings.APP_NAME) {
     }
 
     private fun linkEditorHandlers(editor: Editor) {
-        editor.textAreaListener = EditorTextListener.listen(editor)
+        editor.textAreaListener = EditorTextListener.listen(this)
         editor.onSelectRequest = EditorTabHandler.onSelectionRequest(this)
         editor.onCloseRequest = EditorTabHandler.onCloseRequest(this)
+    }
+
+    fun updateCaretPosition(lines: Int, columns: Int) {
+        caretPosition.text = "Ln $lines, Col $columns"
+    }
+
+    fun updateFileCharsetLabel(charset: String) {
+        fileCharset.text = charset
+    }
+
+    fun updateFileExtensionLabel(extension: String) {
+        fileExtension.text = extension
     }
 }

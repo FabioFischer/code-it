@@ -7,19 +7,22 @@ import javafx.scene.control.Tab
 import javafx.scene.control.TextArea
 import javafx.scene.layout.BorderPane
 import main.util.Settings
+import java.nio.charset.Charset
 
 class Editor(var isActive: Boolean = false, var fileName: String? = "+") {
     val tab: Tab = Tab()
     val borderPane: BorderPane = BorderPane()
-    val textArea: TextArea = TextArea("")
+    val content: TextArea = TextArea("")
     val lineCounter: TextArea = TextArea("1")
 
-    var path: String? = null
+    var charset: Charset = Charset.defaultCharset()
+    var extension: String = ".txt"
     var isChanged: Boolean = false
+    var path: String? = null
 
     var textAreaListener: ChangeListener<String>? = null
         set(listener) {
-            textArea.textProperty().addListener(listener)
+            content.textProperty().addListener(listener)
         }
 
     var onSelectRequest: EventHandler<Event>? = null
@@ -42,17 +45,17 @@ class Editor(var isActive: Boolean = false, var fileName: String? = "+") {
     fun changeName(name: String?) {
         fileName = name
         tab.text = name
-        isChanged = textArea.text.isNullOrEmpty().not()
+        isChanged = content.text.isNullOrEmpty().not()
     }
 
     fun componentsPrefs() {
-        textArea.setPrefSize(borderPane.width, borderPane.height )
+        content.setPrefSize(borderPane.width, borderPane.height )
         lineCounter.setPrefSize(Settings.LINE_COUNTER_WIDTH, borderPane.height )
 
         lineCounter.isEditable = false
         lineCounter.isDisable = true
 
-        borderPane.center = textArea
+        borderPane.center = content
         borderPane.left = lineCounter
     }
 }

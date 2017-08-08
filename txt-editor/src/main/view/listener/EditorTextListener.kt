@@ -3,25 +3,36 @@ package main.view.listener
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
 import main.model.Editor
+import main.view.screen.impl.MainScreen
 
-class EditorTextListener(var editor: Editor): ChangeListener<String>{
+class EditorTextListener(var root: MainScreen): ChangeListener<String>{
     override fun changed(observable: ObservableValue<out String>?, oldValue: String?, newValue: String?) {
-        writeLineCounter(newValue!!.lines())
+        val editor: Editor? = root.editorController.get(root.tabPane.selectionModel.selectedItem)
 
-        if (oldValue.isNullOrEmpty().not() && oldValue != newValue) editor.isChanged = true
+        if (editor != null) {
+            updateEditorInfo(editor)
+            writeLineCounter(editor, newValue!!.lines())
+            if (oldValue.isNullOrEmpty().not() && oldValue != newValue) editor.isChanged = true
+        }
     }
 
-    fun writeLineCounter(textLines: List<String>) {
+    fun writeLineCounter(editor: Editor, textLines: List<String>) {
         var str: String = ""
 
         for (i in 1..textLines.size) {str += "$i\n"}
 
         editor.lineCounter.text = str
-        editor.lineCounter.scrollTopProperty().bindBidirectional(editor.textArea.scrollTopProperty())
-        editor.lineCounter.scrollLeftProperty().bindBidirectional(editor.textArea.scrollLeftProperty())
+        editor.lineCounter.scrollTopProperty().bindBidirectional(editor.content.scrollTopProperty())
+    }
+
+    fun updateEditorInfo(editor: Editor) {
+        // TODO: Add listener on editor content TextArea to update caret position
+        root.updateFileCharsetLabel("UTF-8")
+        root.updateFileExtensionLabel("Plain Text .txt")
+        root.updateCaretPosition(1, 1)
     }
 
     companion object  {
-        fun listen(editor: Editor): EditorTextListener = EditorTextListener(editor)
+        fun listen(root: MainScreen): EditorTextListener = EditorTextListener(root)
     }
 }

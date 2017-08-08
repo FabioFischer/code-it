@@ -73,7 +73,7 @@ class EditorFileHandler(val editorController: EditorController, val fileControll
         if (path.isNullOrEmpty().not()) {
             try {
                 if (editor != null) {
-                    fileController.new(path, editor.tab.text, false)
+                    fileController.new(path, editor.extension, editor.content.text, false)
                     editor.isChanged = false
 
                     return true
@@ -91,7 +91,7 @@ class EditorFileHandler(val editorController: EditorController, val fileControll
                 editorController.enableEditor(editor, file.name)
                 editor.path = file.path.toString()
                 editor.isChanged = false
-                editor.textArea.text = fileController.getContent(file.path.toString(), Settings.APP_CHARSET)
+                editor.content.text = fileController.getContent(file.path.toString(), editor.extension, Settings.APP_CHARSET)
                 root!!.tabPane.selectionModel.select(editor.tab)
 
                 root?.addTab(root!!.tabPane, Editor())
@@ -117,7 +117,7 @@ class EditorFileHandler(val editorController: EditorController, val fileControll
                         newFile(editor, file.path.toString())
                     }
                 } else {
-                    fileController.save(editor.path!!, editor.textArea.text)
+                    fileController.save(editor.path!!, editor.extension, editor.content.text)
                     editor.isChanged = false
                 }
             }

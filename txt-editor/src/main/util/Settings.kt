@@ -16,5 +16,5 @@ object Settings {
     val DEFAULT_PROJECTS_DIRECTORY: String = "C:/Code-iT Projects"
     val VALID_EXTENSIONS: List<FileChooser.ExtensionFilter> = listOf(FileChooser.ExtensionFilter("All files", "*"))
 
-    val LINE_COUNTER_WIDTH: Double = 20.0
+    val LINE_COUNTER_WIDTH: Double = 52.0
 }

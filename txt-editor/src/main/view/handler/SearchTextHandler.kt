@@ -13,7 +13,7 @@ class SearchTextHandler {
 
             if (editor != null) {
                 try {
-                    root.textController.findFirst(editor.textArea, root.textFind.text)
+                    root.textController.findFirst(editor.content, root.textFind.text)
                 } catch(e: IllegalArgumentException) {
                     root.showDialogMessage(Settings.APP_NAME, "Error at finding the text.", e.message!!, Alert.AlertType.ERROR)
                 }
@@ -27,7 +27,7 @@ class SearchTextHandler {
 
             if (editor != null) {
                 try {
-                    root.textController.findNext(editor.textArea, root.textFind.text)
+                    root.textController.findNext(editor.content, root.textFind.text)
                 } catch(e: IllegalArgumentException) {
                     root.showDialogMessage(Settings.APP_NAME, "Error at finding the text", e.message!!, Alert.AlertType.ERROR)
                 }
@@ -41,7 +41,7 @@ class SearchTextHandler {
 
             if (editor != null) {
                 try {
-                    root.textController.replace(editor.textArea, root.textFind.text, root.textReplace.text)
+                    root.textController.replace(editor.content, root.textFind.text, root.textReplace.text)
                 } catch(e: IllegalArgumentException) {
                     root.showDialogMessage(Settings.APP_NAME, "Error at replacing the match", e.message!!, Alert.AlertType.ERROR)
                 }
@@ -55,7 +55,7 @@ class SearchTextHandler {
 
             if (editor != null) {
                 try {
-                    root.textController.replace(editor.textArea, root.textFind.text, root.textReplace.text)
+                    root.textController.replace(editor.content, root.textFind.text, root.textReplace.text)
                 } catch(e: IllegalArgumentException) {
                     root.showDialogMessage(Settings.APP_NAME, "Error at replacing all the matches.", e.message!!, Alert.AlertType.ERROR)
                 }

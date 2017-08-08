@@ -10,8 +10,8 @@ import java.nio.file.Paths
 class FileController : IFileController {
     private val serialVersionUID = 1L
 
-    override fun new(path: String, fileContent: String, override: Boolean) {
-        val filePath: Path = this.getPath(path)
+    override fun new(path: String, extension: String, fileContent: String, override: Boolean) {
+        val filePath: Path = this.getPath(path, extension)
 
         if (override.not())
             if (Files.exists(filePath))
@@ -22,8 +22,8 @@ class FileController : IFileController {
         }
     }
 
-    override fun save(path: String, fileContent: String) {
-        val filePath: Path = this.getPath(path)
+    override fun save(path: String, extension: String, fileContent: String) {
+        val filePath: Path = this.getPath(path, extension)
 
         if (Files.exists(filePath))
             Files.createFile(filePath)
@@ -33,8 +33,8 @@ class FileController : IFileController {
         }
     }
 
-    override fun saveAs(path: String, fileContent: String, override: Boolean) {
-        val filePath: Path = this.getPath(path)
+    override fun saveAs(path: String, extension: String, fileContent: String, override: Boolean) {
+        val filePath: Path = this.getPath(path, extension)
 
         if (override.not())
             if (Files.exists(filePath))
@@ -45,16 +45,16 @@ class FileController : IFileController {
         }
     }
 
-    override fun getContent(path: String, charset: Charset): String {
-        val filePath = getPath(path)
+    override fun getPath(path: String, extension: String): Path = Paths.get( if (path.endsWith(extension)) path else "$path$extension" )
+
+    override fun getContent(path: String, extension: String, charset: Charset): String {
+        val filePath = getPath(path, extension)
 
         if (Files.exists(filePath).not())
             throw FileNotFoundException("File ${filePath.fileName} not found!")
 
         return filePath.toFile().readText(charset = charset)
     }
-
-    override fun getPath(path: String): Path = Paths.get( if (path.endsWith(".txt")) path else "$path.txt" )
 
     override fun getName(path: String): String = Paths.get(path).fileName.toString().replace(".txt", "")
 }
