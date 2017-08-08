@@ -40,9 +40,9 @@ class Editor(var isActive: Boolean = false, var fileName: String? = "+") {
     }
 
     fun changeName(name: String?) {
-        this.fileName = name
-        this.tab.text = name
-        this.isChanged = true
+        fileName = name
+        tab.text = name
+        isChanged = textArea.text.isNullOrEmpty().not()
     }
 
     fun componentsPrefs() {
