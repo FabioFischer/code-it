@@ -16,9 +16,6 @@ class EditorTextListener(var editor: Editor): ChangeListener<String>{
 
         for (i in 1..textLines.size) {str += "$i\n"}
 
-        println("T Size ${editor.textArea.text.lines().size}")
-        println("E Size ${editor.lineCounter.text.lines().size}")
-
         editor.lineCounter.text = str
         editor.lineCounter.scrollTopProperty().bindBidirectional(editor.textArea.scrollTopProperty())
         editor.lineCounter.scrollLeftProperty().bindBidirectional(editor.textArea.scrollLeftProperty())
