@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d78d9433-68ab-46d5-8257-15fb33c2549f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/txt-editor/main/model/Editor.class" afterPath="$PROJECT_DIR$/out/production/txt-editor/main/model/Editor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/txt-editor/main/view/handler/EditorFileHandler.class" afterPath="$PROJECT_DIR$/out/production/txt-editor/main/view/handler/EditorFileHandler.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/txt-editor/main/view/handler/EditorTabHandler$onCloseRequest.class" afterPath="$PROJECT_DIR$/out/production/txt-editor/main/view/handler/EditorTabHandler$onCloseRequest.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/txt-editor/main/view/handler/EditorTabHandler$onSelectionRequest.class" afterPath="$PROJECT_DIR$/out/production/txt-editor/main/view/handler/EditorTabHandler$onSelectionRequest.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/model/Editor.kt" afterPath="$PROJECT_DIR$/src/main/model/Editor.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/view/handler/EditorFileHandler.kt" afterPath="$PROJECT_DIR$/src/main/view/handler/EditorFileHandler.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/view/handler/EditorTabHandler.kt" afterPath="$PROJECT_DIR$/src/main/view/handler/EditorTabHandler.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/view/listener/EditorTextListener.kt" afterPath="$PROJECT_DIR$/src/main/view/listener/EditorTextListener.kt" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,8 +19,8 @@
       <file leaf-file-name="MainScreen.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/view/screen/impl/MainScreen.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="782">
-              <caret line="142" column="39" lean-forward="true" selection-start-line="142" selection-start-column="39" selection-end-line="142" selection-end-column="39" />
+            <state relative-caret-position="323">
+              <caret line="70" column="0" lean-forward="true" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
               <folding>
                 <element signature="e#31#478#0" expanded="true" />
               </folding>
@@ -104,13 +98,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EditorTabHandler.kt" pinned="false" current-in-tab="true">
+      <file leaf-file-name="EditorTabHandler.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/view/handler/EditorTabHandler.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="44" lean-forward="false" selection-start-line="15" selection-start-column="44" selection-end-line="15" selection-end-column="44" />
+            <state relative-caret-position="578">
+              <caret line="34" column="1" lean-forward="true" selection-start-line="34" selection-start-column="1" selection-end-line="34" selection-end-column="1" />
               <folding>
                 <element signature="e#27#208#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EditorTextListener.kt" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/view/listener/EditorTextListener.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="356">
+              <caret line="24" column="5" lean-forward="true" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
+              <folding>
+                <element signature="e#28#135#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -119,8 +125,8 @@
       <file leaf-file-name="Editor.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/model/Editor.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="24" column="52" lean-forward="true" selection-start-line="24" selection-start-column="52" selection-end-line="24" selection-end-column="52" />
+            <state relative-caret-position="305">
+              <caret line="50" column="0" lean-forward="true" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
               <folding>
                 <element signature="e#20#252#0" expanded="true" />
               </folding>
@@ -192,7 +198,6 @@
         <option value="$PROJECT_DIR$/src/main/util/Resources.kt" />
         <option value="$PROJECT_DIR$/src/main/controller/FileController.kt" />
         <option value="$PROJECT_DIR$/src/main/view/screen/IScreenBuilder.kt" />
-        <option value="$PROJECT_DIR$/src/main/view/listener/EditorTextListener.kt" />
         <option value="$PROJECT_DIR$/src/main/view/screen/AboutScreen.kt" />
         <option value="$PROJECT_DIR$/src/main/util/Settings.kt" />
         <option value="$PROJECT_DIR$/src/main/view/screen/AbstractScreen.kt" />
@@ -202,9 +207,10 @@
         <option value="$PROJECT_DIR$/src/main/view/screen/MainScreen.kt" />
         <option value="$PROJECT_DIR$/src/main/view/screen/SearchScreen.kt" />
         <option value="$PROJECT_DIR$/src/main/view/screen/impl/MainScreen.kt" />
-        <option value="$PROJECT_DIR$/src/main/model/Editor.kt" />
         <option value="$PROJECT_DIR$/src/main/view/handler/EditorFileHandler.kt" />
         <option value="$PROJECT_DIR$/src/main/view/handler/EditorTabHandler.kt" />
+        <option value="$PROJECT_DIR$/src/main/view/listener/EditorTextListener.kt" />
+        <option value="$PROJECT_DIR$/src/main/model/Editor.kt" />
       </list>
     </option>
   </component>
@@ -826,7 +832,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12579282" sideWeight="0.50208336" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.08350951" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39006343" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329653" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -1159,16 +1165,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/view/listener/EditorTextListener.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding>
-            <element signature="e#28#135#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/view/screen/impl/AboutScreen.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -1245,26 +1241,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/model/Editor.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="24" column="52" lean-forward="true" selection-start-line="24" selection-start-column="52" selection-end-line="24" selection-end-column="52" />
-          <folding>
-            <element signature="e#20#252#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/view/screen/impl/MainScreen.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="782">
-          <caret line="142" column="39" lean-forward="true" selection-start-line="142" selection-start-column="39" selection-end-line="142" selection-end-column="39" />
-          <folding>
-            <element signature="e#31#478#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/view/handler/EditorFileHandler.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="349">
@@ -1277,10 +1253,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/view/handler/EditorTabHandler.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="44" lean-forward="false" selection-start-line="15" selection-start-column="44" selection-end-line="15" selection-end-column="44" />
+        <state relative-caret-position="578">
+          <caret line="34" column="1" lean-forward="true" selection-start-line="34" selection-start-column="1" selection-end-line="34" selection-end-column="1" />
           <folding>
             <element signature="e#27#208#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/view/screen/impl/MainScreen.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="70" column="0" lean-forward="true" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
+          <folding>
+            <element signature="e#31#478#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/model/Editor.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="305">
+          <caret line="50" column="0" lean-forward="true" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+          <folding>
+            <element signature="e#20#252#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/view/listener/EditorTextListener.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="356">
+          <caret line="24" column="5" lean-forward="true" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
+          <folding>
+            <element signature="e#28#135#0" expanded="true" />
           </folding>
         </state>
       </provider>

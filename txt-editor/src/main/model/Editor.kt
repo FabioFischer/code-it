@@ -46,8 +46,8 @@ class Editor(var isActive: Boolean = false, var fileName: String? = "+") {
     }
 
     fun componentsPrefs() {
-        textArea.setPrefSize( Double.MAX_VALUE, Double.MAX_VALUE )
-        lineCounter.setPrefSize( Settings.LINE_COUNTER_WIDTH, Double.MAX_VALUE )
+        textArea.setPrefSize(borderPane.width, borderPane.height )
+        lineCounter.setPrefSize(Settings.LINE_COUNTER_WIDTH, borderPane.height )
 
         lineCounter.isEditable = false
         lineCounter.isDisable = true
